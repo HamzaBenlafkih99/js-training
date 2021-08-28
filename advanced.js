@@ -116,3 +116,19 @@ setInterval(() => {
      because unles we clear it and stop it ,it's going to keep runing and runing
      */
 });
+
+// WEB API
+
+console.log("1");
+setTimeout(() => {
+  console.log(2);
+}, 1000);
+console.log("3");
+
+// output : 1
+3;
+2;
+
+/* to understand what actually happening check this link
+http://latentflip.com/loupe :: video 18 part fondamentals
+*/
