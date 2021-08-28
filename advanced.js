@@ -88,10 +88,31 @@ programming language
 so the momery management is already done for us :)
  */
 
-// memory leak
+// memory leak: fill up the momery
 
+// The causes of memory leak:
+// 1 - infinite loop
 let array = [];
 for (let i = 5; i > 1; i++) {
   array.push(i - 1);
 }
-// infinite look that fill up the memory :)
+// infinite loop that fill up the memory :)
+
+// 2 - global variables
+var a = 1;
+var b = 1;
+var c = 1;
+
+// event listeners
+
+var element = document.getElementById("button");
+element.addEventListener("click", onClick);
+/** this keep adding listener to the memory even if we don't need them in certain context  */
+
+// setInterval
+setInterval(() => {
+  // referencing objects ...
+  /**these object is never going to be collected by the garbage collection
+     because unles we clear it and stop it ,it's going to keep runing and runing
+     */
+});
