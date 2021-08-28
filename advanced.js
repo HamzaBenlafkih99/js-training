@@ -38,3 +38,60 @@ const obj1 = new Animal(1, 2);
 const obj2 = new Animal(3, 4);
 
 delete obj1.x;
+
+// ------------------------------ call stack + memory heap --------------------------/
+
+// memory heap
+const number = 610; // allocate memory for number
+const string = "same text"; // allocate memory for a string
+
+const human = {
+  // allocate memory for an object ... and it's values
+  first: "hamza",
+  second: "benlafkih",
+};
+
+// call stack
+
+function substractTwo(num) {
+  return num - 2;
+}
+
+function calculate() {
+  const sumTotal = 4 + 5;
+  return substractTwo(sumTotal);
+}
+
+calculate(); // test it in console snippet
+
+/* what does the call stack do is that we store calculate() function in memory 
+and when we called it we pass that function the top of the stack, when it finished up 
+we remove it from the stack
+*/
+
+// stack over flow
+
+function inception() {
+  inception();
+}
+
+/* stack over flow hahaha :) */
+
+// Garbage collection
+
+/* javascript is garbage collector language 
+meaning if we store same data into our memory and we finished 
+up using that data (no need of that data any more) we remove that data 
+from our memory (collect our garbage) so that the memory doesn't store 
+much data which assensely going to decrease the performance of the
+programming language
+so the momery management is already done for us :)
+ */
+
+// memory leak
+
+let array = [];
+for (let i = 5; i > 1; i++) {
+  array.push(i - 1);
+}
+// infinite look that fill up the memory :)
