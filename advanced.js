@@ -528,3 +528,52 @@ const obj = {
 };
 
 obj.sing();
+
+// Call() apply() bind()
+
+// 1 call()
+const wizard = {
+  name: "Merlin",
+  health: 100,
+  heal() {
+    return (this.health = 100);
+  },
+};
+
+const archer = {
+  name: "Robin Hood",
+  health: 50,
+};
+
+console.log("1: " + archer); // output: {  name: "Robin Hood",  health: 50, }
+wizard.heal.call(archer, 50, 60);
+console.log("2: " + archer); // output: {  name: "Robin Hood",  health: 10 0, }
+// 2 - call() + apply():  difference is that apply() we pass method parameteres in an array
+const wizard = {
+  name: "Merlin",
+  health: 100,
+  heal: function (num1, num2) {
+    this.health += num1 + num2;
+  },
+};
+
+const archer = {
+  name: "Robin Hood",
+  health: 50,
+};
+
+wizard.heal.call(archer, 50, 60);
+wizard.heal.apply(archer, [20, 30]);
+archer;
+wizard.heal.apply(archer, [20, 30]);
+
+// function borrowing
+/* the bind function is different a little bit from call() and apply() 
+it does not run the function it return the function which mean 
+we can assign it into a variable and use it like so
+*/
+
+const healArcher = wizard.heal.bind(archer);
+console.log(archer);
+healArcher();
+console.log(archer);
