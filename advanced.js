@@ -430,3 +430,101 @@ not necesecrely function like var we're gonna create new execution context (new 
 access to
 */
 // global variable: see the example folder called global
+
+// IIFE: immediately invoked function expression
+
+(function () {
+  var a = 1;
+})();
+
+a; // error we can't access this
+
+// this keyword: se image "this"
+
+//this
+const obj = {
+  name: "Billy",
+  sing() {
+    return "llala " + this.name + "!";
+  },
+  singAgain() {
+    return this.sing();
+  },
+};
+
+function importantPerson() {
+  console.log(this.name);
+}
+
+const name = "Sunny";
+const obj1 = { name: "Cassy", importantPerson: importantPerson };
+const obj2 = { name: "Jacob", importantPerson: importantPerson };
+
+obj2.importantPerson(); //output: Jacob
+// this benefits us execute the same code for multiple objects
+
+// -- Dynamic scope vs lexical scope
+
+//Exercise:
+const a = function () {
+  console.log(this);
+  const b = function () {
+    console.log(this);
+    const c = {
+      hi: function () {
+        console.log(this);
+      },
+    };
+    c.hi();
+  };
+  b();
+};
+
+a(); // run it
+
+//JS is weird:
+const obj = {
+  name: "Billy",
+  sing: function () {
+    console.log(this); // in this case, it's a method on an object.
+    var anotherFunc = function () {
+      console.log(this); // this points to windows! --> problem right :(  let's see how we can fixe it
+    };
+    anotherFunc();
+  },
+};
+
+obj.sing();
+
+/*
+the solution is to replace anotherFunc normal function syntax with arrow function that allow us lexecly bind "this"
+and it's going to be  like this
+*/
+
+const obj = {
+  name: "Billy",
+  sing: function () {
+    console.log(this); // in this case, it's a method on an object.
+    var anotherFunc = () => {
+      console.log(this);
+    };
+    anotherFunc();
+  },
+};
+
+obj.sing();
+
+// but before we have ES6 module we do it like this
+
+const obj = {
+  name: "Billy",
+  sing: function () {
+    console.log(this); // in this case, it's a method on an object.
+    var anotherFunc = function () {
+      console.log(this);
+    };
+    return anotherFunc.bind(this);
+  },
+};
+
+obj.sing();
