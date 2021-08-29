@@ -130,5 +130,115 @@ console.log("3");
 2;
 
 /* to understand what actually happening check this link
-http://latentflip.com/loupe :: video 18 part fondamentals
+http://latentflip.com/loupe :: or watch the end of video 18 part fondamentals
+*/
+
+// ---------------------------- Fondamentals 2 ---------------------------------------//
+
+// Execution context
+
+/* 
+execution context means that when the javascript engine see () 
+which is a function it's going to create an execution context 
+propre to that function on the stack 
+*/
+
+// Lexical Environment
+
+/* Lexical Environment simply mean where you write something
+   Like each function has his own universe (see images to more details :) )
+*/
+
+// Hoisting
+
+/* 
+ See the first image : 
+ */
+
+console.log("1--------------");
+console.log(teddy);
+console.log(sing());
+var teddy = "bear";
+function sing() {
+  console.log("ohh la la la");
+}
+
+/* output: 
+1--------------
+undefined
+ohh la la la
+
+so does actually happend is that when javascript see console.log(variable)
+ which is not defined yet it's going to say yeah this is a variable 
+ i'm going to allocate memory for it 
+ like when js engine see teddy, it's going to say ohh teddy its a variable so i'm going to allocate memory for 
+ it and declare "var teddy = undefined"
+ when it see sing(), it's going to say yeah this is a function so i'm going to move the declaration on the top 
+ and allocate momery for it, (great right :) )  
+ now why teddy is undefined and sing() is not
+ so js engine consider that variable purchly hoisted which mean not in the right side 
+ functions is fully hoisted both in left and right side
+
+*/
+// the same thing apply for this
+console.log("1--------------");
+console.log(teddy);
+console.log(sing());
+function sing() {
+  console.log("ohh la la la");
+}
+
+// what if we do
+console.log("1--------------");
+console.log(teddy);
+console.log(sing());
+(function sing() {
+  console.log("ohh la la la");
+});
+
+/* 
+output: 
+1--------------
+undefined
+error: Uncaught ReferenceError: sing is not defined
+why is that: to hoist things js engine look if start with var of function 
+but here in our example we didn't start with function word
+so js engine hoist when we see only var and function (not ES6 sintaxe like let + const)
+*/
+
+// Exercice1 : hoisting
+a();
+
+function a() {
+  console.log("hii");
+}
+
+function a() {
+  console.log("bye");
+}
+
+// Output: bye
+
+// Exercice2 : hoisting
+
+var favouriteFood = "grapes";
+
+var foodThoughts = function () {
+  console.log("Original favourite food: " + favouriteFood);
+
+  var favouriteFood = "sushi";
+
+  console.log("New favourite food: " + favouriteFood);
+};
+
+foodThoughts();
+
+/*
+Output: 
+Original favourite food: undefined
+New favourite food: sushi
+
+why is that: we already mension that hoising is runing in every execution context
+which is when we create new function, an execution context was created
+and we look inside the function as unique universe that has his own variables
 */
