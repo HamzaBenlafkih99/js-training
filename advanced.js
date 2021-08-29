@@ -429,3 +429,4 @@ this happend because of block scope which mean wenever we see let or const it' i
 not necesecrely function like var we're gonna create new execution context (new world) that outside world does not
 access to
 */
+// global variable: see the example folder called global
