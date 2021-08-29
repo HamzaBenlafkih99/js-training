@@ -242,3 +242,88 @@ why is that: we already mension that hoising is runing in every execution contex
 which is when we create new function, an execution context was created
 and we look inside the function as unique universe that has his own variables
 */
+
+// function Declaration
+
+// function expression
+var canada = () => {
+  console.log("cold");
+};
+// function declaration
+function india() {
+  console.log("warm");
+}
+//////:::::::::::::::::::::::::::
+
+function marry(person1, person2) {
+  console.log(arguments);
+  console.log(`${person1} is now married to ${person2}`);
+}
+
+marry("Tim", "Tina");
+
+/* output : 
+{
+  0:"Tim",
+  1:"Tina"
+  }
+  Tim is now married to Tina
+*/
+
+// now we will see that using arguments is bad for our js engine
+// see image 1
+function marry(person1, person2) {
+  console.log(arguments);
+  console.log(Array.from(arguments));
+  console.log(`${person1} is now married to ${person2}`);
+}
+
+marry("Tim", "Tina");
+
+/* 
+output: 
+{
+0:"Tim",
+1:"Tina"
+}
+(2) [
+"Tim",
+"Tina"
+]
+Tim is now married to Tina
+*/
+
+function marry2(...args) {
+  console.log(args);
+  console.log(Array.from(arguments));
+  console.log(`${args[0]} is now married to ${args[1]}`);
+}
+
+marry("Tim", "Tina");
+
+/*
+ [
+"Tim",
+"Tina"
+]
+(2) [
+"Tim",
+"Tina"
+]
+Tim is now married to Tina
+*/
+
+// se image 2
+
+//Variable Environement
+function two() {
+  var isValid; // 5. isValid is undefined in this execution context.
+}
+
+function one() {
+  var isValid = true; // 3. this variable will be put into the new execution context. It's own variable environment
+  two(); // 4. New execution context created.
+}
+
+var isValid = false; // 1. Global variable is created as undefined. Then during execution, it changes in memory to false.
+one(); // 2. New execution context is created on top of the stack.
