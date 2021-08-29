@@ -327,3 +327,105 @@ function one() {
 
 var isValid = false; // 1. Global variable is created as undefined. Then during execution, it changes in memory to false.
 one(); // 2. New execution context is created on top of the stack.
+
+// scope chaining
+/* 
+see image 3 in functions which mean that every function has access 
+to the parent context which mean variable invironment has acess to 
+*/
+
+const x = "x";
+function findName() {
+  console.log(x);
+  var b = "b";
+  return printName();
+}
+
+function printName() {
+  var c = "c";
+  return "Andrei Neagoie";
+}
+
+function sayMyName() {
+  var x = "haha";
+  var a = "a";
+  return findName();
+}
+
+sayMyName(); // output : x
+
+// other example
+
+// Scope:
+// this deferent from the last one (see image 4)
+function sayMyName() {
+  var a = "a";
+  return function findName() {
+    var b = "b";
+    console.log(c);
+    return function printName() {
+      var c = "c";
+      console.log(a);
+      return "Andrei Neagoie";
+    };
+  };
+}
+
+sayMyName()()(); // output : a
+
+// javascript weird exercice
+
+// Weird Javascript #1 - it asks global scope for height. Global scope says: ummm... no but here I just created it for you.
+// ps this isn't allowed in strict mode. We call this leakage of global variables.
+// so we use 'use strict' to void such as weird behavior of js
+function weird() {
+  height = 50;
+}
+
+var heyhey = function doodle() {
+  // code here
+};
+
+heyhey();
+doodle(); // Error! because it is enclosed in its own scope.
+
+// Block scope
+
+//Function Scope
+function loop() {
+  for (var i = 0; i < 5; i++) {
+    console.log(i);
+  }
+  console.log("final: " + i);
+}
+
+// output:
+/* 
+0
+1
+2
+3
+4
+final: 5
+*/
+
+//Block Scope
+function loop2() {
+  for (let i = 0; i < 5; i++) {
+    console.log(i);
+  }
+  console.log("final: " + i);
+}
+
+/* output: 
+0
+1
+2
+3
+4
+error: Uncaught ReferenceError: i is not defined
+comment: 
+this happend because of block scope which mean wenever we see let or const it' inside {}
+not necesecrely function like var we're gonna create new execution context (new world) that outside world does not
+access to
+*/
