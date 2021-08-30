@@ -547,7 +547,7 @@ const archer = {
 
 console.log("1: " + archer); // output: {  name: "Robin Hood",  health: 50, }
 wizard.heal.call(archer, 50, 60);
-console.log("2: " + archer); // output: {  name: "Robin Hood",  health: 10 0, }
+console.log("2: " + archer); // output: {  name: "Robin Hood",  health: 100, }
 // 2 - call() + apply():  difference is that apply() we pass method parameteres in an array
 const wizard = {
   name: "Merlin",
@@ -578,7 +578,7 @@ console.log(archer);
 healArcher();
 console.log(archer);
 
-// -- function currying
+// -- function currying:  mean parcialy give a function a parameter
 
 function multiply(a, b) {
   return a * b;
@@ -589,3 +589,28 @@ console.log(multipleByTwo(4));
 
 var multipleByThree = multiply.bind(this, 3);
 console.log(multipleByThree(4));
+
+// ---------------------- Types in JS --------------------------------//
+
+/*
+// Primitive
+Number
+Boolean
+String
+Undefined
+null
+Symbol("it's me :)")
+// Non-Primitive
+{}
+[]
+function(){}
+
+// se image 1 in types folder
+ */
+
+true.toString(); // output: "true"
+/* 
+why is that, we already say that true is a primitive type, so why we act like an aobject
+when js engine see this kind of instruction inder the hood is going to read it like this
+Boolean(true).toString() which is weird hahahaha
+*/
