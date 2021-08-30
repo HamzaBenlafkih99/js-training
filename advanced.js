@@ -614,3 +614,86 @@ why is that, we already say that true is a primitive type, so why we act like an
 when js engine see this kind of instruction inder the hood is going to read it like this
 Boolean(true).toString() which is weird hahahaha
 */
+
+// ---------------------- Pass By REFERENCE VS BY VaALUE----------/
+// see image 2
+/*
+Primitive types are emuteble which mean we can not change them 
+for example if had { var a = 5} and after a while we change it to a = 10 
+js engine not change it, he remove the previous value and create new one for us 
+not like object we can change it in the same place in memory 
+*/
+
+// example
+
+var c = [1, 2, 3];
+var d = c;
+d.push(4);
+
+console.log(c); // [1,2,3,4]
+console.log(d); // [1,2,3,4]
+
+let obj = {
+  a: "a",
+  b: "b",
+  c: {
+    deep: "try and copy me",
+  },
+};
+let clone = Object.assign({}, obj);
+let clone2 = { ...obj };
+let superClone = JSON.parse(JSON.stringify(obj));
+
+obj.c.deep = "hahaha";
+console.log(obj);
+/*
+output: 
+{
+a:"a",
+b:"b",
+c: {
+deep:"hahaha"
+}
+}
+*/
+console.log(clone);
+/*
+output: 
+{
+a:"a",
+b:"b",
+c: {
+deep:"hahaha"
+}
+}
+*/
+console.log(clone2);
+/*
+output: 
+{
+a:"a",
+b:"b",
+c: {
+deep:"hahaha"
+}
+}
+*/
+/* 
+this what we called shalow clone which mean we copy just the first level of the object 
+not the second object which mean clone and clone2 and object still have the same reference to the object
+we can super clone to solve the problem using Json :)
+*/
+console.log(superClone);
+
+/*
+output: 
+{
+a:"a",
+b:"b",
+c: {
+deep:"try and copy me"
+}
+}
+*/
+
+// -------------------- Type coercion ------------//
