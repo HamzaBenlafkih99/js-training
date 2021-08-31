@@ -878,3 +878,23 @@ boo("hi")("john")("tanya");
 booString = boo2("sing");
 booStringName = booString("John");
 booStringNameName2 = booStringName("tanya");
+
+//exercise:
+function callMeMaybe() {
+  setTimeout(function () {
+    console.log(callMe);
+  }, 4000);
+  const callMe = "Hi I'm now here!";
+}
+
+callMeMaybe();
+
+// output:  "Hi I'm now here!"
+/* 
+whi is that 
+what actually happening here, is that when js engine see setTimeout it's going to pass that intp web api world
+but js doesn't stop it keep runing and it store callMe variable and it's not garbege collected because js engine 
+already notice that we have closures here however we have setTimeOut which is not part of js but js engine doesn't care
+it's going to store that value for us to use it as a reference :)
+how cool is that :)))
+*/
