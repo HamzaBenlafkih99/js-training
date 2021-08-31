@@ -936,3 +936,28 @@ function heavyDuty2() {
   };
 }
 // now we are efficient right :)
+
+// 2--> encapsulation
+
+// Exercise:
+const makeNuclearButton = () => {
+  let timeWithoutDestruction = 0;
+  const passTime = () => timeWithoutDestruction++;
+  const totalPeaceTime = () => timeWithoutDestruction;
+  const launch = () => {
+    timeWithoutDestruction = -1;
+    return "💥";
+  };
+
+  setInterval(passTime, 1000);
+  return { totalPeaceTime };
+};
+
+const ww3 = makeNuclearButton();
+ww3.totalPeaceTime();
+/* 
+call this a lot of time and see that every time we have a new value this allow us to encapsulate the timeWithoutDestruction
+and not use it derectly 
+how cool is that :)
+
+*/
