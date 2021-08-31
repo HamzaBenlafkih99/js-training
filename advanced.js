@@ -959,5 +959,51 @@ ww3.totalPeaceTime();
 call this a lot of time and see that every time we have a new value this allow us to encapsulate the timeWithoutDestruction
 and not use it derectly 
 how cool is that :)
-
 */
+
+// Exercice 1
+
+// Make it so that the initialize function can only be called once!
+let view;
+function initialize() {
+  view = "🏔";
+  console.log("view has been set!");
+}
+
+initialize();
+initialize();
+initialize();
+
+console.log(view);
+// solution
+
+let view;
+function initialize() {
+  view = "🏔";
+  return () => {
+    if (called > 0) {
+      return;
+    } else {
+      view = "🏔";
+      called++;
+      console.log("view has been set!");
+    }
+  };
+}
+
+const startOnce = initialize();
+startOnce(); // view has been set!
+startOnce(); // undefined
+startOnce(); // undefined
+
+/*
+How cool is that, now we force calling the function just once :))
+*/
+
+// Exercice 2
+const array = [1, 2, 3, 4];
+for (var i = 0; i < array.length; i++) {
+  setTimeout(function () {
+    console.log("I am at index " + i);
+  }, 3000);
+}
