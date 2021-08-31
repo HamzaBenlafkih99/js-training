@@ -831,3 +831,9 @@ letPerson({ level: "user", name: "Hamza" }, authenticate);
 letPerson({ level: "admin", name: "Akkab" }, authenticate);
 
 // Generic powerful function :), this is really dynamic
+// other example
+
+const multiplyBy = (nbr) => (nbrTwo) => nbr * nbrTwo;
+
+const multipleByTwo = multiplyBy(2);
+console.log(multipleByTwo(5));
