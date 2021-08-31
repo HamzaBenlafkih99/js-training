@@ -898,3 +898,41 @@ already notice that we have closures here however we have setTimeOut which is no
 it's going to store that value for us to use it as a reference :)
 how cool is that :)))
 */
+
+/* 
+Closures are good in :
+--> Memory efficient
+--> Encapsulation
+*/
+
+// memory efficient
+
+function heavyDuty(item) {
+  const bigArray = new Array(7000).fill("😄");
+  console.log("created!");
+  return bigArray[item];
+}
+
+heavyDuty(699);
+heavyDuty(699);
+heavyDuty(699);
+/* 
+in this example every time we call the function we create a massive array and we remove it when we finished
+but that sound not very efficient right :)
+isn't cool if we create this array the first time and store it because we know that we're gonna be using it a lot
+*/
+
+const getHeavyDuty = heavyDuty2();
+getHeavyDuty(699);
+getHeavyDuty(699);
+getHeavyDuty(699);
+
+// but i dont want to pollute the global namespace..
+function heavyDuty2() {
+  const bigArray = new Array(7000).fill("😄");
+  console.log("created Again!");
+  return function (item) {
+    return bigArray[item];
+  };
+}
+// now we are efficient right :)
