@@ -725,3 +725,28 @@ const specialObj = {
 
 // see image 1 in pillars folder
 /* it show how function object looks like behind the scense :) */
+
+// ---- FUnctions are first class citizens in js
+
+/* This is mean that : 
+1 - functions can be assign to variables and properties of object
+for example
+------------
+var stuff = function(){}
+2 - functions can be arguments to another function 
+for example: 
+-------------
+function a(fn){
+  fn()
+}
+a(function(){ console.log('hi there') })
+
+3 - return function as value from another function
+for example:
+------------
+function b(){
+  return c(){
+    console.log('Bye')
+  }
+}
+*/
