@@ -697,3 +697,31 @@ deep:"try and copy me"
 */
 
 // -------------------- Type coercion ------------//
+
+// ------ Functions are objects
+// Another way to call functions
+const four = new Function("return 4");
+four(); // output: 4
+
+const four = new Function("num", "return num");
+four(4); // output: 4
+
+/* this is called function constructor */
+
+function woohooo() {
+  console.log("woohooo");
+}
+
+woohooo.yell = "ahhaaaa";
+
+/*
+what is happend inder the hood
+const specialObj = {
+  yell: 'ahhhhhh',
+  name: woohooo,
+  ()=> console.log(woohooo)
+}
+*/
+
+// see image 1 in pillars folder
+/* it show how function object looks like behind the scense :) */
