@@ -726,7 +726,7 @@ const specialObj = {
 // see image 1 in pillars folder
 /* it show how function object looks like behind the scense :) */
 
-// ---- FUnctions are first class citizens in js
+// ---- Functions are first class citizens in js
 
 /* This is mean that : 
 1 - functions can be assign to variables and properties of object
@@ -749,4 +749,85 @@ function b(){
     console.log('Bye')
   }
 }
+var d = b();
+d();
 */
+
+// Higher order function
+/* 
+--means that function take an argument a function
+or
+-- a function that return another function
+*/
+
+// now see the second image : and we gonna work with little gogo :) which is function without params
+function letAdamLogin() {
+  let array = [];
+  for (let i = 0; i < 10000000; i++) {
+    array.push(i);
+  }
+  return "Access Granted to Adm";
+}
+function letHamzaLogin() {
+  let array = [];
+  for (let i = 0; i < 10000000; i++) {
+    array.push(i);
+  }
+  return "Access Granted to Hamza";
+}
+letAdamLogin();
+letHamzaLogin();
+// we repeat our self right and it's not very Efficient right :(
+
+// let's move into the next gogo from the second image
+
+const giveAccessTo = (name) => "Access Granted to " + name;
+
+function letUserLogin(user) {
+  let array = [];
+  for (let i = 0; i < 10000000; i++) {
+    array.push(i);
+  }
+  return giveAccessTo(user);
+}
+letUserLogin("Hamza");
+
+// this is amazing right :), we just tell to our function what data to use
+
+// so what problem  if we use function this way
+/*
+example: if we have not just one type of user login, if we have for example admin user as well 
+using functions this way is going to be like this
+*/
+
+function letAdminLogin(admin) {
+  let array = [];
+  for (let i = 0; i < 50000000; i++) {
+    array.push(i);
+  }
+  return giveAccessTo(admin);
+}
+letUserLogin("Yahya");
+// not really efficient :(
+// the Higher order function is cam in :) ohhooo :)))
+
+function authenticate(verifiy, person) {
+  let array = [];
+  for (let i = 0; i < verifiy; i++) {
+    array.push(i);
+  }
+  return giveAccessTo(person.name);
+}
+// HOF
+function letPerson(person, fn) {
+  if (person.level === "admin") {
+    return fn(500000, person);
+  } else if (person.level === "user") {
+    return fn(500000, person);
+  }
+}
+
+letPerson({ level: "user", name: "Hamza" }, authenticate);
+letPerson({ level: "admin", name: "Akkab" }, authenticate);
+
+// Generic powerful function :), this is really dynamic
