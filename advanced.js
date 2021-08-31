@@ -837,3 +837,44 @@ const multiplyBy = (nbr) => (nbrTwo) => nbr * nbrTwo;
 
 const multipleByTwo = multiplyBy(2);
 console.log(multipleByTwo(5));
+
+// First pillars: Closures
+
+// see image 3
+// example
+
+function a() {
+  let grandpa = "grandpa";
+  return function b() {
+    let father = "father";
+    return function c() {
+      let son = "son";
+      return `${grandpa} > ${father} > ${son}`;
+    };
+  };
+}
+a()()();
+/* 
+when we run a function we pup up of the stack and when we finish from it we collect the garbage with all variables
+but what actually happend here, is that function c() remenber whar grandpa and father are, which is enaspected behavior
+but in this cas the garbeg collection when he saw a closures it doesn't remove it from the memory heap which mean we let him now 
+that there are some references to these variables which is reallt powerfull
+*/
+
+//closures and higher order function
+function boo(string) {
+  return function (name) {
+    return function (name2) {
+      console.log(`hi ${name2}`);
+    };
+  };
+}
+
+const boo2 = (string) => (name) => (name2) => console.log(`hi ${name2}`);
+
+boo("hi")("john")("tanya");
+
+// AHH! HOW DOES IT REMEMBER THIS 5 years from now?
+booString = boo2("sing");
+booStringName = booString("John");
+booStringNameName2 = booStringName("tanya");
