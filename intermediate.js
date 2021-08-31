@@ -3,22 +3,22 @@
 
 var fun = 5;
 
-function funFunction(){
-    //Child scope
-    var fun = "hellooo";
-    console.log(1, fun);
+function funFunction() {
+  //Child scope
+  var fun = "hellooo";
+  console.log(1, fun);
 }
 
-function funerFunction(){
-    //Child scope
-    var fun = "Byeee";
-    console.log(2, fun);
+function funerFunction() {
+  //Child scope
+  var fun = "Byeee";
+  console.log(2, fun);
 }
 
-function funestFunction(){
-    //Child scope
-    fun = "HAAAAAAA";
-    console.log(3, fun);
+function funestFunction() {
+  //Child scope
+  fun = "HAAAAAAA";
+  console.log(3, fun);
 }
 
 console.log(4, fun);
@@ -27,18 +27,16 @@ funerFunction();
 funestFunction();
 console.log(fun);
 
-
 // Part 2
 var fun = 5;
 
-function funFunction(){
-    //Child scope
-    
-    console.log(fun);
-    // what actually happend is that when we console.log fun the compiler search to find 
-    // variable fun in the function scope if he diden't find it he start looking for the parent scope
-}
+function funFunction() {
+  //Child scope
 
+  console.log(fun);
+  // what actually happend is that when we console.log fun the compiler search to find
+  // variable fun in the function scope if he diden't find it he start looking for the parent scope
+}
 
 // let + const
 

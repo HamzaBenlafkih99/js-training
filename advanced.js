@@ -1007,3 +1007,39 @@ for (var i = 0; i < array.length; i++) {
     console.log("I am at index " + i);
   }, 3000);
 }
+
+/* 
+output after 3 second: 
+I am at index 4
+I am at index 4
+I am at index 4
+I am at index 4
+
+we want to print all the indexs
+*/
+
+// solution
+// first way
+
+const array = [1, 2, 3, 4];
+for (let i = 0; i < array.length; i++) {
+  setTimeout(function () {
+    console.log("I am at index " + i);
+  }, 3000);
+}
+
+/* 
+var is part of the global scope --> is going to intialise once and change every time we loop out 
+let create a bloc scope which mean we create every time a variable that accesble inside {}
+*/
+
+// Other way : closures :)
+
+const array = [1, 2, 3, 4];
+for (let i = 0; i < array.length; i++) {
+  (function (closureI) {
+    setTimeout(function () {
+      console.log("I am at index " + closureI);
+    }, 3000);
+  })(i);
+}
