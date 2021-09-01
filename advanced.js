@@ -1045,3 +1045,20 @@ for (var i = 0; i < array.length; i++) {
 }
 
 // Pillars --> Prototypes inheretance
+
+/*
+Prototypes inheretence is like class inheretence in java or c#, but js not OOP language, so js use what we called 
+prototyple inheretance which mean object has access to properties and methods from another object using __proto__ 
+like soo
+*/
+const array = [];
+array.__proto__; // run it :)
+array.__proto__.__proto__; // run it :)
+
+const fun = function () {};
+array.__proto__; // run it :)
+array.__proto__.__proto__; // run it :)
+
+const obj = {};
+array.__proto__; // run it :)
+// you will notice that arrays and functions at the end of the day are just objects
