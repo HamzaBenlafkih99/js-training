@@ -1168,3 +1168,14 @@ Object.prototype;
 multiplyBy5.__proto__.__proto__.__proto__;
 typeof Object;
 typeof {};
+
+// Create our own prototypes:
+var human = { mortal: true };
+var socrates = Object.create(human);
+console.log(socrates); // {} because the propery exist in one place in memory which is human
+console.log(socrates.mortal); // true
+human.isPrototypeOf(socrates); // true
+
+// this way is better then using __proto__
+
+//-- hard lesson
