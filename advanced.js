@@ -1036,10 +1036,12 @@ let create a bloc scope which mean we create every time a variable that accesble
 // Other way : closures :)
 
 const array = [1, 2, 3, 4];
-for (let i = 0; i < array.length; i++) {
+for (var i = 0; i < array.length; i++) {
   (function (closureI) {
     setTimeout(function () {
       console.log("I am at index " + closureI);
     }, 3000);
   })(i);
 }
+
+// Pillars --> Prototypes inheretance
