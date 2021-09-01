@@ -1062,3 +1062,41 @@ array.__proto__.__proto__; // run it :)
 const obj = {};
 array.__proto__; // run it :)
 // you will notice that arrays and functions at the end of the day are just objects
+
+// example 1
+
+let dragon = {
+  name: "Tanya",
+  fire: true,
+  fight() {
+    return 5;
+  },
+  sing() {
+    if (this.fire) {
+      return `I am ${this.name}, the breather of fire`;
+    }
+  },
+};
+
+let lizard = {
+  name: "Kiki",
+  fight() {
+    return 1;
+  },
+};
+const lizardFire = dragon.sing.bind(lizard);
+console.log(lizardFire()); // does not work
+/* we wanna access to sing() method from dragon object, the problem is lizard object does not have fire property :(
+  and also we want to inheret everything inside dragon object
+ */
+// Don't do this, bad performance. Show with bind.
+lizard.__proto__ = dragon;
+dragon.isPrototypeOf(lizard);
+console.log(lizard.fire); // it's work
+console.log(lizard.sing()); // it's work
+/* 
+when js engine see lizard.sing() is going to check if we have a method in lizard object, 
+and if he doesn't find anything, he start to looking up of the prototype chaine which is the dragon 
+object because we're just override the default prototype object with dragon
+
+*/
