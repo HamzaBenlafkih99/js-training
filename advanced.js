@@ -1133,3 +1133,38 @@ fight
 fire
 sing
 */
+
+// --- Now let's see a little about functions
+
+function a() {}
+a.hasOwnProperty("name"); // output: true
+a.name; // output: "a"
+a.hasOwnProperty("call"); // output: false
+a.hasOwnProperty("bind"); // output: false
+a.hasOwnProperty("apply"); // output: false
+
+/* why is that : 
+see image 4 pillars
+you see that call and apply and bind not exist in a() function object and it's all exist in the base 
+Function object which mean we can access it using a.__proto__ because we won't every function 
+we define has these property which is occupy another place in memory
+we want to be efficient in memory space and inheret those properties from the object up of the chain
+soo we occupy just one space in memory --> efficient right :)
+
+see also image 5
+as you can see here in prototype inheretance we have always the idea of __proto__ link 
+into prototype and prototype has __proto__ property (it's like linked list :) )
+*/
+
+//Every Prototype chain links to a prototype object{}
+function multiplyBy5(num) {
+  return num * 5;
+}
+
+multiplyBy5.__proto__; //run
+Function.prototype; // run --> value is the same as multiplyBy5.__proto__
+multiplyBy5.__proto__.__proto__;
+Object.prototype;
+multiplyBy5.__proto__.__proto__.__proto__;
+typeof Object;
+typeof {};
