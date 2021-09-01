@@ -1163,11 +1163,6 @@ function multiplyBy5(num) {
 
 multiplyBy5.__proto__; //run
 Function.prototype; // run --> value is the same as multiplyBy5.__proto__
-multiplyBy5.__proto__.__proto__;
-Object.prototype;
-multiplyBy5.__proto__.__proto__.__proto__;
-typeof Object;
-typeof {};
 
 // Create our own prototypes:
 var human = { mortal: true };
@@ -1179,3 +1174,11 @@ human.isPrototypeOf(socrates); // true
 // this way is better then using __proto__
 
 //-- hard lesson
+
+multiplyBy5.__proto__.__proto__;
+Object.prototype;
+multiplyBy5.__proto__.__proto__.__proto__;
+typeof Object; // "function"
+typeof {};
+typeof Object.prototype; // Object
+// try this a little bit yourself
