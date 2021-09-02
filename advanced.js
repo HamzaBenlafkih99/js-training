@@ -1291,3 +1291,24 @@ which mean that this refer to the global object--> window because there is no ob
 but by using regular function which is dynamicly scoped which mean it doesn't matter where it's written, but who actually called it
 
 */
+
+// Now the class keyword :))
+
+class Elf {
+  constructor(name, weapon) {
+    this.name = name;
+    this.weapon = weapon;
+  }
+
+  attack() {
+    return "attack with" + this.weapon;
+  }
+}
+
+const sam = new Elf("Sam", "bow");
+const peter = new Elf("Peter", "bow");
+
+console.log(same.name);
+console.log(same.atack());
+
+console.log(sam instanceof Elf);
