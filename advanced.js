@@ -1208,3 +1208,50 @@ Date.prototype.lastYear = function () {
 // not Date object
 
 new Date("1900-10-10").lastYear();
+
+// --------------------------- Oriented Object Programming -------------------------------//
+
+// --> see image 1 in oop and create a programme from image 2 in oop
+
+// !!! --> you should know that we start with basic solution step  by step until acheive programming paradims in image 3
+// factory function make/create
+function createElf(name, weapon) {
+  //we can also have closures here to hide properties from being changed.
+  return {
+    name: name,
+    weapon: weapon,
+    atack() {
+      return "atack with " + weapon;
+    },
+  };
+}
+const sam = createElf("Sam", "bow");
+const peter = createElf("Peter", "bow");
+
+sam.atack();
+
+/* 
+The problem with factory function, imagine that if we have a ton of elfs which mean declare a lot of 
+elfs object we're gonna have to save every time a space in memory, this is not the best :(
+*/
+
+// Let's make it good programme using what we've already learn in prototypal inheretance --> object.create()
+
+const elfFunctions = {
+  attack() {
+    return "attack with " + this.weapon;
+  },
+};
+
+function createElf(name, weapon) {
+  let newElf = Object.create(elfFunctions);
+  newElf.name = name;
+  newElf.weapon = weapon;
+
+  return newElf;
+}
+const sam = createElf("Sam", "bow");
+const peter = createElf("Peter", "bow");
+
+console.log(sam.atack());
+console.log(peter.atack());
