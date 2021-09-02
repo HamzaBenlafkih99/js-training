@@ -1255,3 +1255,39 @@ const peter = createElf("Peter", "bow");
 
 console.log(sam.atack());
 console.log(peter.atack());
+
+// object.create() based in prototype inheretance which make our code more extenseble and respect our paradigms
+// befiore that let see what we have :)
+
+// --> constructor function
+
+function Elf(name, weapon) {
+  this.name = name;
+  this.weapon = weapon;
+}
+
+Elf.prototype.attack = function () {
+  return "attack with" + this.weapon;
+};
+
+const sam = new Elf("Sam", "bow");
+const peter = new Elf("Peter", "bow");
+
+console.log(same.name);
+console.log(same.atack());
+
+/* 
+we already see in functions that when we call a function a new execution context is created 
+which have environment variable and also this, this 100% of the time point to the window object
+but using new keyword, we say hay "this" i want you to point what ever the object that we create which are sam and peter
+and it also create the object and return it for us, how awsom is that :)
+now as we know Elf function is like Function object which mean it live in top of regular function in terms 
+of prototype chaine so we can use prototype to create new method but it's gonna created just one time and when 
+we declare new object with new keyword we're gonna be access that method without created every time like we see 
+in the past --> memory efficient :)
+
+one more thing we can't use arrow function because arrow function is lexecly scoped or staticly scoped 
+which mean that this refer to the global object--> window because there is no object serrounding it 
+but by using regular function which is dynamicly scoped which mean it doesn't matter where it's written, but who actually called it
+
+*/
