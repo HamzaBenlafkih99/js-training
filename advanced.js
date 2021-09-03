@@ -1633,3 +1633,23 @@ console.log(1, memoized(6));
 // console.log(cache)
 // console.log('-----------')
 console.log(2, memoized(6));
+
+// Compose
+
+const compose = (f, g) => (data) => f(g(data));
+const multipleByThree = (nbr) => nbr * 3;
+const makePositive = (nbr) => Math.abs(nbr);
+const multipleByT3AndAbsolute = compose(multipleByThree, makePositive);
+
+/*  
+composobility is a system design principle that deals with the relationship between components 
+*/
+
+// Pipe
+/* 
+essencialy the same thing exept instead of right to left it goes left to right
+*/
+
+const Pipe = (f, g) => (data) => g(f(data)); // the opposite of compose :)
+
+// Arity --> number of argument a function take
