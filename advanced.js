@@ -1501,4 +1501,23 @@ function good() {
 Math.abs(Math.abs(10));
 // this mean no metter how i call the function inside of itself, it's going to return always the same thing
 
-//
+// Imperative vs Declarative
+
+/*
+Imperative code --> tell the machine what to do and how to do it
+Declarative code --> tell the machine what to do and what should happend, it doesn't tell the computer how
+to do things
+*/
+
+//imperative
+
+for (let i = 0; i < 100; i++) {
+  console.log(i);
+}
+
+// this is an imperative code which mean we declare i we tell it to increment in each iteration
+
+[1, 2, 3].forEach((num) => console.log(num));
+
+// this time arround we have an Declarative code which mean we don't tell it how to do things we're just
+// tell it to console.log() the iterble item of the array
