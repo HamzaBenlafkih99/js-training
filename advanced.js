@@ -1403,3 +1403,76 @@ const houseElf = new Elf("Dolby", "cloth", "house");
 //houseElf.makeFort() // error
 const shrek = new Ogre("Shrek", "club", "green");
 shrek.makeFort();
+
+// ------------------------------ Functional programming ---------------------------------------//
+
+// Amazon shopping
+const user = {
+  name: "Kim",
+  active: true,
+  cart: [],
+  purchases: [],
+};
+//Implement a cart feature:
+// 1. Add items to cart.
+// 2. Add 3% tax to item in cart
+// 3. Buy item: cart --> purchases
+// 4. Empty cart
+
+//Bonus:
+// accept refunds.
+// Track user history.
+
+// --------------- We're gonna give you the solution of this example at the end of the section
+
+/* 
+pure functions : there are two main things
+--> a function has always return the same output given the same input
+--> a function can't modify anything outside of itself (no side effect)
+*/
+
+//Side effects:
+const array = [1, 2, 3];
+function mutateArray(arr) {
+  arr.pop();
+}
+function mutateArray2(arr) {
+  arr.forEach((item) => arr.push(1));
+}
+//The order of the function calls will matter.
+mutateArray(array);
+mutateArray2(array);
+array; // --> side effect
+
+// pure functions
+
+const array = [1, 2, 3];
+function removeLastItem(arr) {
+  const newArray = [].concat(array);
+  newArray.pop();
+  return newArray;
+}
+
+console.log(removeLastItem(array)); // [1, 2]
+console.log(array); // [1, 2, 3] --> no side effect :)
+
+function mutateArrayBy2(arr) {
+  return arr.map((item) => item * 2);
+}
+
+console.log(mutateArrayBy2(array)); // [2, 4, 6]
+console.log(array); // [1, 2, 3] --> no side effect cz map return new array
+
+// example side effect
+
+function a() {
+  console.log("hi");
+}
+
+a(); // hi --> side effect because console.log is a window specific we're using the browser to log something to the browser
+
+// ---- now the second concept which is input --> output
+
+function a(num1, num2) {
+  return num1 + num2;
+}
