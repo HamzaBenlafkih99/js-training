@@ -1521,3 +1521,57 @@ for (let i = 0; i < 100; i++) {
 
 // this time arround we have an Declarative code which mean we don't tell it how to do things we're just
 // tell it to console.log() the iterble item of the array
+
+// ------- Imutibility --------
+
+/*
+Immutibility mean not changing the data, not changing the state
+but instead copying the state and returning new state every time
+*/
+
+const obj = { name: "Andrei" };
+function clone(obj) {
+  return { ...obj }; // this is pure
+}
+
+function updateName(obj) {
+  const obj2 = clone(obj);
+  obj2.name = "Nana";
+  return obj2;
+}
+
+const updatedObj = updateName(obj);
+console.log(obj, updatedObj);
+// we don't change the global state which is "obj"
+
+// ____ HIF
+
+//HOF
+const hof = (fn) => fn(5);
+hof(function a(x) {
+  return x;
+});
+//Closure
+const closure = function () {
+  let count = 0;
+  return function increment() {
+    count++;
+    return count;
+  };
+};
+
+const incrementFn = closure();
+incrementFn();
+incrementFn();
+incrementFn();
+
+// --- Currying
+
+const multiply = (a, b) => a * b;
+
+const multiplyCurrying = (a) => (b) => a * b;
+
+const multipleByTwo = multiplyCurrying(2);
+console.log(multipleByTwo(4)); // output: 8
+
+//
