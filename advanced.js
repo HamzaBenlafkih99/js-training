@@ -1580,3 +1580,35 @@ console.log(multipleByTwo(4)); // output: 8
 const multiply = (a, b, c) => a * b * c;
 const partialMultiplyBy5 = multiply.bind(null, 5);
 partialMultiplyBy5(10, 20);
+
+// --- Dynamic programming
+
+function addTo80(nbr) {
+  console.log("takes a long time ...");
+  return nbr + 80;
+}
+addTo80(5);
+addTo80(5);
+addTo80(5);
+
+/*
+imagine that the operation is a little bit complexe and take time
+how we can optimize this in order to not repeat the same operation over and over
+this is when we can use caching or memoization
+*/
+
+let cache = {};
+
+function memoizeAddTo80(n) {
+  if (n in cache) {
+    return cache[n];
+  } else {
+    console.log("long time ...");
+    cache[n] = n + 80;
+    return cache[n];
+  }
+}
+memoizeAddTo80(5); // output
+//--> long time ...
+//--> 85
+memoizeAddTo80(5); // output: 85 --> amazing right
