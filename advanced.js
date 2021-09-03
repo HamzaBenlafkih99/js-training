@@ -1574,4 +1574,9 @@ const multiplyCurrying = (a) => (b) => a * b;
 const multipleByTwo = multiplyCurrying(2);
 console.log(multipleByTwo(4)); // output: 8
 
-//
+//-- partial application
+
+//Partial Application
+const multiply = (a, b, c) => a * b * c;
+const partialMultiplyBy5 = multiply.bind(null, 5);
+partialMultiplyBy5(10, 20);
