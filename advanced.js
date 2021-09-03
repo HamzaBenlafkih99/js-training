@@ -1476,3 +1476,29 @@ a(); // hi --> side effect because console.log is a window specific we're using 
 function a(num1, num2) {
   return num1 + num2;
 }
+
+a(3, 4);
+/*
+no matter how many time we called it it's going to give us always the same output
+and this is called referential transparency which mean
+if i completely change this function to number 7 we will have any effect in the program
+
+*/
+
+// --- Idempotence:
+
+// Idempotence:
+function notGood(num) {
+  return Math.random(num);
+  // new Date();
+}
+notGood(5); // not always the same output
+
+function good() {
+  return 5;
+}
+
+Math.abs(Math.abs(10));
+// this mean no metter how i call the function inside of itself, it's going to return always the same thing
+
+//
