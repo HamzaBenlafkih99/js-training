@@ -1723,3 +1723,9 @@ promise.all() take an array of promises and return the resolved values as an arr
 can see in the image with the console
 see image 2 and 3 to understand more :) 
 */
+
+// -------- Async await
+
+// see image 4 and 5
+
+//-------- object and array spread operator  see --> img 6 7 8
