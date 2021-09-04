@@ -1713,3 +1713,13 @@ function emptyCart(user) {
 }
 
 function refundItem() {}
+
+// --------------- Asyncronous programming ---------------//
+
+// see image 1 async programming
+
+/* 
+promise.all() take an array of promises and return the resolved values as an array as you 
+can see in the image with the console
+see image 2 and 3 to understand more :) 
+*/
