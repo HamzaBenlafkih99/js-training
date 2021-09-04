@@ -1729,3 +1729,5 @@ see image 2 and 3 to understand more :)
 // see image 4 and 5
 
 //-------- object and array spread operator  see --> img 6 7 8
+
+// ---------- Finally Promise block --> see image 9 10
