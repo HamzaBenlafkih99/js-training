@@ -1799,4 +1799,61 @@ Promise.allSettled([promiseOne, promiseTwo]).then((data) => console.log(data));
 /*
 output : 
 [{ status:"fulfilled", value:undefined }, { status:"rejected", reason:undefined }]
+
+allSettled does not care if the promise resolved of rejected
 */
+
+// ---------------------------- modules ---------------------------------//
+
+var harry = "potter";
+var voldemort = "He who must not be named";
+function fight(char1, char2) {
+  var attack1 = Math.floor(Math.random() * char1.length);
+  var attack2 = Math.floor(Math.random() * char2.length);
+  return attack1 > attack2 ? `${char1} wins` : `${char2} wins`;
+}
+
+fight(harry, voldemort);
+
+/* 
+The problem with this script is that we define harry and voldermort and also fight function in the global scope 
+what if some developers come in and just create another script and declare var fight = "haha" 
+it's going to ovveride the fight function with haha variable, not good at all :(
+
+--> we can solve this problem using IIFE
+*/
+
+(function () {
+  var harry = "potter";
+  var voldemort = "He who must not be named";
+  function fight(char1, char2) {
+    var attack1 = Math.floor(Math.random() * char1.length);
+    var attack2 = Math.floor(Math.random() * char2.length);
+    return attack1 > attack2 ? `${char1} wins` : `${char2} wins`;
+  }
+
+  fight(harry, voldemort);
+})();
+
+/* now if we declare var fight = haha; --> now we can't change fight function because it's in his own 
+scope which is inside the function, how cool is that :)
+now what if we wanna share fight function in others script
+
+--> we can do this
+*/
+
+var fightModule = (function () {
+  var harry = "potter";
+  var voldemort = "He who must not be named";
+  function fight(char1, char2) {
+    var attack1 = Math.floor(Math.random() * char1.length);
+    var attack2 = Math.floor(Math.random() * char2.length);
+    return attack1 > attack2 ? `${char1} wins` : `${char2} wins`;
+  }
+
+  return {
+    fight,
+  };
+})();
+
+/* now other script can access to fight function as we want :) */
