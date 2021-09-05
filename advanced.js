@@ -1731,3 +1731,48 @@ see image 2 and 3 to understand more :)
 //-------- object and array spread operator  see --> img 6 7 8
 
 // ---------- Finally Promise block --> see image 9 10
+
+// ------- for await of --> image 11
+
+// Paralell, Sequance and Race
+/* imagine we have 3 promises, we can call it like -->
+--> in parallel : which mean do all the promises in parallel
+--> in Sequance : when the first one is finished, start the second one and so on
+--> in Race:  i want you to do all promises, and the first one finished, just grab the value and ignore others
+*/
+
+const promisify = (item, delay) =>
+  new Promise((resolve) => setTimeout(() => resolve(item), delay));
+
+const a = () => promisify("a", 100);
+const b = () => promisify("b", 5000);
+const c = () => promisify("c", 3000);
+
+async function parallel() {
+  const promises = [a(), b(), c()];
+  const [output1, output2, output3] = await Promise.all(promises);
+  return `parallel is done: ${output1} ${output2} ${output3}`;
+}
+
+parallel().then(console.log); // output: parallel is done:  a b c
+
+async function race() {
+  const promises = [a(), b(), c()];
+  const output1 = await Promise.race(promises);
+  return `race is done: ${output1}`;
+}
+
+race().then(console.log); // race is done: a
+
+async function sequence() {
+  const output1 = await a();
+  const output2 = await b();
+  const output3 = await c();
+  return `sequence is done ${output1} ${output2} ${output3}`;
+}
+
+sequence().then(console.log);
+parallel().then(console.log);
+race().then(console.log);
+
+/* race finished first --> then parallel -> then sequence  */
