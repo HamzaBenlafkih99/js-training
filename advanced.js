@@ -1856,4 +1856,16 @@ var fightModule = (function () {
   };
 })();
 
-/* now other script can access to fight function as we want :) */
+/* now other script can access to fight function as we want :) 
+this is great, but still have an issue here, fightModule is still polute the global space
+which mean anyone can overwritten it :(
+*/
+
+// --> solution : commonJs and AMD
+
+// comonJs --> require - module.exports
+
+// ---- ES6 modules --> like what we have in react
+/* in order for us to use ES6 module in natuve js, we need to specifie type of script as a module script
+--> see image 1 module folder to understand
+*/
