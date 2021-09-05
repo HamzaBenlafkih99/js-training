@@ -1776,3 +1776,27 @@ parallel().then(console.log);
 race().then(console.log);
 
 /* race finished first --> then parallel -> then sequence  */
+
+//------- allSettled
+
+const promiseOne = new Promise((resolve, reject) => {
+  setTimeout(resolve, 3000);
+});
+
+const promiseTwo = new Promise((resolve, reject) => {
+  setTimeout(reject, 3000);
+});
+
+Promise.all([promiseOne, promiseTwo]).then((data) => console.log(data));
+
+/* 
+output:Uncaught (in promise)
+because promise.all get resloved when all promises are resolved
+*/
+
+Promise.allSettled([promiseOne, promiseTwo]).then((data) => console.log(data));
+
+/*
+output : 
+[{ status:"fulfilled", value:undefined }, { status:"rejected", reason:undefined }]
+*/
