@@ -28,8 +28,8 @@ the same proccess over and over again :)
 */
 
 // 2 - hidden classes:  is what compiler use inder the hood --> it's something that the compiler
-//does for us to instanciate all object with the same hidden classes, so if we do delete classe we just change the hidden
-// class and it's going to deoptimize our compiler
+//does for us to instanciate all object with the same hidden classes, so if we do delete some properties
+//in a object we just change the hidden class and it's going to deoptimize our compiler
 
 // --> this slow the compiler
 function Animal(x, y) {
