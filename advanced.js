@@ -2,13 +2,13 @@
 
 // 1 - inline caching
 
-function findUser(user) {
-  return `found ${user.firstName} ${user.lastName}`;
+function findUser(nbr) {
+  return nbr + 2;
 }
 
 const userData = {
-  firstName: "Hamza",
-  lastName: "Ben",
+  firstName: 'Hamza',
+  lastName: 'Ben',
 };
 
 findUser(userData);
@@ -18,6 +18,7 @@ findUser(userData);
 /* 
 
 inline caching is a really good programatic way that allow us optimize or js code
+if we use the same method repeatetly, the compiler optimize this using inline caching
 for example in the example from the top we called findUser() function multiple time 
 with the same input and it will give us always the same output
 so with inline caching the compiler say heyy i see that findUser() 
@@ -45,12 +46,12 @@ delete obj1.x;
 
 // memory heap
 const number = 610; // allocate memory for number
-const string = "same text"; // allocate memory for a string
+const string = 'same text'; // allocate memory for a string
 
 const human = {
   // allocate memory for an object ... and it's values
-  first: "hamza",
-  second: "benlafkih",
+  first: 'hamza',
+  second: 'benlafkih',
 };
 
 // call stack
@@ -81,7 +82,7 @@ function inception() {
 
 // Garbage collection
 
-/* javascript is garbage collector language 
+/* javascript is garbage collected language 
 meaning if we store same data into our memory and we finished 
 up using that data (no need of that data any more) we remove that data 
 from our memory (collect our garbage) so that the memory doesn't store 
@@ -105,10 +106,52 @@ var a = 1;
 var b = 1;
 var c = 1;
 
+setTimeout(() => console.log(6), 0);
+console.log(1);
+console.log(2);
+console.log(3);
+console.log(4);
+console.log(5);
+
+// example explain why setTimeOut is bad practice
+
+function placeOrder(oNum) {
+  console.log('Customer order', oNum);
+  cookAndDeliverFood(function () {
+    console.log('Deliverd food order:', oNum);
+  });
+}
+
+//Simulate a 5s operation
+function cookAndDeliverFood(callback) {
+  setTimeout(callback, 5000);
+}
+
+//Simulate User requests;
+placeOrder(1);
+placeOrder(2);
+placeOrder(3);
+placeOrder(4);
+placeOrder(5);
+
+/*
+output : 
+Customer order 1 
+Customer order 2 
+Customer order 3 
+Customer order 4 
+Customer order 5 
+Deliverd food order: 1 
+Deliverd food order: 2 
+Deliverd food order: 3 
+Deliverd food order: 4 
+Deliverd food order: 5
+*/
+
 // event listeners
 
-var element = document.getElementById("button");
-element.addEventListener("click", onClick);
+var element = document.getElementById('button');
+element.addEventListener('click', onClick);
 /** this keep adding listener to the memory even if we don't need them in certain context  */
 
 // setInterval
@@ -121,15 +164,15 @@ setInterval(() => {
 
 // WEB API
 
-console.log("1");
+console.log('1');
 setTimeout(() => {
   console.log(2);
 }, 1000);
-console.log("3");
+console.log('3');
 
 // output : 1
-3;
-2;
+//3;
+//2;
 
 /* to understand what actually happening check this link
 http://latentflip.com/loupe :: or watch the end of video 18 part fondamentals
@@ -142,7 +185,7 @@ http://latentflip.com/loupe :: or watch the end of video 18 part fondamentals
 /* 
 execution context means that when the javascript engine see () 
 which is a function it's going to create an execution context 
-propre to that function on the stack 
+unique to that function on the stack 
 */
 
 // Lexical Environment
@@ -154,15 +197,19 @@ propre to that function on the stack
 // Hoisting
 
 /* 
+is the behavior of moving to the top of the respective environment during the creation phase
+*/
+
+/* 
  See the first image : 
  */
 
-console.log("1--------------");
+console.log('1--------------');
 console.log(teddy);
 console.log(sing());
-var teddy = "bear";
+var teddy = 'bear';
 function sing() {
-  console.log("ohh la la la");
+  console.log('ohh la la la');
 }
 
 /* output: 
@@ -170,7 +217,7 @@ function sing() {
 undefined
 ohh la la la
 
-so does actually happend is that when javascript see console.log(variable)
+ so what does actually happend is that when javascript engine see console.log(variable)
  which is not defined yet it's going to say yeah this is a variable 
  i'm going to allocate memory for it 
  like when js engine see teddy, it's going to say ohh teddy its a variable so i'm going to allocate memory for 
@@ -178,24 +225,24 @@ so does actually happend is that when javascript see console.log(variable)
  when it see sing(), it's going to say yeah this is a function so i'm going to move the declaration on the top 
  and allocate momery for it, (great right :) )  
  now why teddy is undefined and sing() is not
- so js engine consider that variable purchly hoisted which mean not in the right side 
+ so the js engine parcialy hoisted variable which mean not in the right side and 
  functions is fully hoisted both in left and right side
 
 */
 // the same thing apply for this
-console.log("1--------------");
+console.log('1--------------');
 console.log(teddy);
 console.log(sing());
 function sing() {
-  console.log("ohh la la la");
+  console.log('ohh la la la');
 }
 
 // what if we do
-console.log("1--------------");
+console.log('1--------------');
 console.log(teddy);
 console.log(sing());
 (function sing() {
-  console.log("ohh la la la");
+  console.log('ohh la la la');
 });
 
 /* 
@@ -212,25 +259,25 @@ so js engine hoist when we see only var and function (not ES6 sintaxe like let +
 a();
 
 function a() {
-  console.log("hii");
+  console.log('hii');
 }
 
 function a() {
-  console.log("bye");
+  console.log('bye');
 }
 
 // Output: bye
 
 // Exercice2 : hoisting
 
-var favouriteFood = "grapes";
+var favouriteFood = 'grapes';
 
 var foodThoughts = function () {
-  console.log("Original favourite food: " + favouriteFood);
+  console.log('Original favourite food: ' + favouriteFood);
 
-  var favouriteFood = "sushi";
+  var favouriteFood = 'sushi';
 
-  console.log("New favourite food: " + favouriteFood);
+  console.log('New favourite food: ' + favouriteFood);
 };
 
 foodThoughts();
@@ -245,16 +292,20 @@ which is when we create new function, an execution context was created
 and we look inside the function as unique universe that has his own variables
 */
 
-// function Declaration
+// function Declaration vs function expression
 
 // function expression
 var canada = () => {
-  console.log("cold");
+  console.log('cold');
 };
 // function declaration
 function india() {
-  console.log("warm");
+  console.log('warm');
 }
+/* 
+canada() function get run during execution time, but india() get executed during pasing time when 
+the compiler goes through the intire file and start hoist var and functions
+*/
 //////:::::::::::::::::::::::::::
 
 function marry(person1, person2) {
@@ -262,7 +313,7 @@ function marry(person1, person2) {
   console.log(`${person1} is now married to ${person2}`);
 }
 
-marry("Tim", "Tina");
+marry('Tim', 'Tina');
 
 /* output : 
 {
@@ -280,7 +331,7 @@ function marry(person1, person2) {
   console.log(`${person1} is now married to ${person2}`);
 }
 
-marry("Tim", "Tina");
+marry('Tim', 'Tina');
 
 /* 
 output: 
@@ -301,7 +352,7 @@ function marry2(...args) {
   console.log(`${args[0]} is now married to ${args[1]}`);
 }
 
-marry("Tim", "Tina");
+marry('Tim', 'Tina');
 
 /*
  [
@@ -333,24 +384,24 @@ one(); // 2. New execution context is created on top of the stack.
 // scope chaining
 /* 
 see image 3 in functions which mean that every function has access 
-to the parent context which mean variable invironment has acess to 
+to the parent context which mean what variable invironment has acess to 
 */
 
-const x = "x";
+const x = 'x';
 function findName() {
   console.log(x);
-  var b = "b";
+  var b = 'b';
   return printName();
 }
 
 function printName() {
-  var c = "c";
-  return "Andrei Neagoie";
+  var c = 'c';
+  return 'Andrei Neagoie';
 }
 
 function sayMyName() {
-  var x = "haha";
-  var a = "a";
+  var x = 'haha';
+  var a = 'a';
   return findName();
 }
 
@@ -361,14 +412,14 @@ sayMyName(); // output : x
 // Scope:
 // this deferent from the last one (see image 4)
 function sayMyName() {
-  var a = "a";
+  var a = 'a';
   return function findName() {
-    var b = "b";
-    console.log(c);
+    var b = 'b';
+    //console.log(c);
     return function printName() {
-      var c = "c";
+      var c = 'c';
       console.log(a);
-      return "Andrei Neagoie";
+      return 'Andrei Neagoie';
     };
   };
 }
@@ -391,14 +442,14 @@ var heyhey = function doodle() {
 heyhey();
 doodle(); // Error! because it is enclosed in its own scope.
 
-// Block scope
+// Block scope vs Function Scope
 
 //Function Scope
 function loop() {
   for (var i = 0; i < 5; i++) {
     console.log(i);
   }
-  console.log("final: " + i);
+  console.log('final: ' + i);
 }
 
 // output:
@@ -416,7 +467,7 @@ function loop2() {
   for (let i = 0; i < 5; i++) {
     console.log(i);
   }
-  console.log("final: " + i);
+  console.log('final: ' + i);
 }
 
 /* output: 
@@ -431,7 +482,13 @@ this happend because of block scope which mean wenever we see let or const it' i
 not necesecrely function like var we're gonna create new execution context (new world) that outside world does not
 access to
 */
-// global variable: see the example folder called global
+
+/*
+the problem is that we have what we called variable collision image 1 global
+(ovrride variable with another value), which possibly create a lot of bugges
+we can ovaid this behavior, we have what we called IIFE: immediately invoked function expression like below
+
+*/
 
 // IIFE: immediately invoked function expression
 
@@ -439,15 +496,30 @@ access to
   var a = 1;
 })();
 
-a; // error we can't access this
+a; // error we can't access this, because
+/*
+we can place all our variables and function or any sort of information inside this local scope
+so that w don't worry to much about namespace collision
+see index.html in global folder -> as you can see we are avoiding collision between the two function a()
+see image 1 to clear the picture for you :), well that cool right :)
+
+we can use Jquery here, so when add jquery script we pull out our global object (window)
+to unsur it see image 2, cool :)
+Now, we can do something like so -> image 3, as you can see we pass what jquery provide us into IIFE function
+if you notice we diden't directly use $ signe, because if we do that, inside IIFE we look first into the local scope 
+we didn't find $ variable after that we go up to see if global scope has it for me
+soo when we pass it as a parameter we immediatly find it, how performant is that :), 
+we are avoiding scope chain lookup
+*/
 
 // this keyword: se image "this"
 
-//this
+//this : we have 2 benefits
+// benefit 1 :gives methods access to their object
 const obj = {
-  name: "Billy",
+  name: 'Billy',
   sing() {
-    return "llala " + this.name + "!";
+    return 'llala ' + this.name + '!';
   },
   singAgain() {
     return this.sing();
@@ -458,12 +530,12 @@ function importantPerson() {
   console.log(this.name);
 }
 
-const name = "Sunny";
-const obj1 = { name: "Cassy", importantPerson: importantPerson };
-const obj2 = { name: "Jacob", importantPerson: importantPerson };
+const name = 'Sunny';
+const obj1 = { name: 'Cassy', importantPerson: importantPerson };
+const obj2 = { name: 'Jacob', importantPerson: importantPerson };
 
 obj2.importantPerson(); //output: Jacob
-// this benefits us execute the same code for multiple objects
+// benefit 2 :  execute the same code for multiple objects
 
 // -- Dynamic scope vs lexical scope
 
@@ -486,7 +558,7 @@ a(); // run it
 
 //JS is weird:
 const obj = {
-  name: "Billy",
+  name: 'Billy',
   sing: function () {
     console.log(this); // in this case, it's a method on an object.
     var anotherFunc = function () {
@@ -500,11 +572,11 @@ obj.sing();
 
 /*
 the solution is to replace anotherFunc normal function syntax with arrow function that allow us lexecly bind "this"
-and it's going to be  like this
+and it's going to be  like below, so that we have lexical scope in our code
 */
 
 const obj = {
-  name: "Billy",
+  name: 'Billy',
   sing: function () {
     console.log(this); // in this case, it's a method on an object.
     var anotherFunc = () => {
@@ -519,7 +591,7 @@ obj.sing();
 // but before we have ES6 module we do it like this
 
 const obj = {
-  name: "Billy",
+  name: 'Billy',
   sing: function () {
     console.log(this); // in this case, it's a method on an object.
     var anotherFunc = function () {
@@ -535,7 +607,7 @@ obj.sing();
 
 // 1 call()
 const wizard = {
-  name: "Merlin",
+  name: 'Merlin',
   health: 100,
   heal() {
     return (this.health = 100);
@@ -543,16 +615,16 @@ const wizard = {
 };
 
 const archer = {
-  name: "Robin Hood",
+  name: 'Robin Hood',
   health: 50,
 };
 
-console.log("1: " + archer); // output: {  name: "Robin Hood",  health: 50, }
+console.log('1: ' + archer); // output: {  name: "Robin Hood",  health: 50, }
 wizard.heal.call(archer, 50, 60);
-console.log("2: " + archer); // output: {  name: "Robin Hood",  health: 100, }
+console.log('2: ' + archer); // output: {  name: "Robin Hood",  health: 100, }
 // 2 - call() + apply():  difference is that apply() we pass method parameteres in an array
 const wizard = {
-  name: "Merlin",
+  name: 'Merlin',
   health: 100,
   heal: function (num1, num2) {
     this.health += num1 + num2;
@@ -560,7 +632,7 @@ const wizard = {
 };
 
 const archer = {
-  name: "Robin Hood",
+  name: 'Robin Hood',
   health: 50,
 };
 
@@ -570,7 +642,13 @@ archer;
 wizard.heal.apply(archer, [20, 30]);
 
 // function borrowing
-/* the bind function is different a little bit from call() and apply() 
+/* 
+Function borrowing allows us to use the methods of one object on a different object 
+without having to make a copy of that method and maintain it in two separate places. 
+It is accomplished through the use of .call(), .apply(), or .bind(), all of which exist 
+to explicitly set this on the method we are borrowing.
+
+the bind function is different a little bit from call() and apply() 
 it does not run the function it return the function which mean 
 we can assign it into a variable and use it like so
 */
@@ -636,17 +714,17 @@ console.log(c); // [1,2,3,4]
 console.log(d); // [1,2,3,4]
 
 let obj = {
-  a: "a",
-  b: "b",
+  a: 'a',
+  b: 'b',
   c: {
-    deep: "try and copy me",
+    deep: 'try and copy me',
   },
 };
 let clone = Object.assign({}, obj);
 let clone2 = { ...obj };
 let superClone = JSON.parse(JSON.stringify(obj));
 
-obj.c.deep = "hahaha";
+obj.c.deep = 'hahaha';
 console.log(obj);
 /*
 output: 
@@ -702,19 +780,19 @@ deep:"try and copy me"
 
 // ------ Functions are objects
 // Another way to call functions
-const four = new Function("return 4");
+const four = new Function('return 4');
 four(); // output: 4
 
-const four = new Function("num", "return num");
+const four = new Function('num', 'return num');
 four(4); // output: 4
 
 /* this is called function constructor */
 
 function woohooo() {
-  console.log("woohooo");
+  console.log('woohooo');
 }
 
-woohooo.yell = "ahhaaaa";
+woohooo.yell = 'ahhaaaa';
 
 /*
 what is happend inder the hood
@@ -768,14 +846,14 @@ function letAdamLogin() {
   for (let i = 0; i < 10000000; i++) {
     array.push(i);
   }
-  return "Access Granted to Adm";
+  return 'Access Granted to Adm';
 }
 function letHamzaLogin() {
   let array = [];
   for (let i = 0; i < 10000000; i++) {
     array.push(i);
   }
-  return "Access Granted to Hamza";
+  return 'Access Granted to Hamza';
 }
 letAdamLogin();
 letHamzaLogin();
@@ -783,7 +861,7 @@ letHamzaLogin();
 
 // let's move into the next gogo from the second image
 
-const giveAccessTo = (name) => "Access Granted to " + name;
+const giveAccessTo = (name) => 'Access Granted to ' + name;
 
 function letUserLogin(user) {
   let array = [];
@@ -792,7 +870,7 @@ function letUserLogin(user) {
   }
   return giveAccessTo(user);
 }
-letUserLogin("Hamza");
+letUserLogin('Hamza');
 
 // this is amazing right :), we just tell to our function what data to use
 
@@ -809,7 +887,7 @@ function letAdminLogin(admin) {
   }
   return giveAccessTo(admin);
 }
-letUserLogin("Yahya");
+letUserLogin('Yahya');
 // not really efficient :(
 // the Higher order function is cam in :) ohhooo :)))
 
@@ -822,15 +900,15 @@ function authenticate(verifiy, person) {
 }
 // HOF
 function letPerson(person, fn) {
-  if (person.level === "admin") {
+  if (person.level === 'admin') {
     return fn(500000, person);
-  } else if (person.level === "user") {
+  } else if (person.level === 'user') {
     return fn(500000, person);
   }
 }
 
-letPerson({ level: "user", name: "Hamza" }, authenticate);
-letPerson({ level: "admin", name: "Akkab" }, authenticate);
+letPerson({ level: 'user', name: 'Hamza' }, authenticate);
+letPerson({ level: 'admin', name: 'Akkab' }, authenticate);
 
 // Generic powerful function :), this is really dynamic
 // other example
@@ -846,18 +924,18 @@ console.log(multipleByTwo(5));
 // example
 
 function a() {
-  let grandpa = "grandpa";
+  let grandpa = 'grandpa';
   return function b() {
-    let father = "father";
+    let father = 'father';
     return function c() {
-      let son = "son";
+      let son = 'son';
       return `${grandpa} > ${father} > ${son}`;
     };
   };
 }
 a()()();
 /* 
-when we run a function we pup up of the stack and when we finish from it we collect the garbage with all variables
+when we run a function we pop up of the stack and when we finish from it we collect the garbage with all variables
 but what actually happend here, is that function c() remenber whar grandpa and father are, which is enaspected behavior
 but in this cas the garbeg collection when he saw a closures it doesn't remove it from the memory heap which mean we let him now 
 that there are some references to these variables which is reallt powerfull
@@ -867,19 +945,20 @@ that there are some references to these variables which is reallt powerfull
 function boo(string) {
   return function (name) {
     return function (name2) {
-      console.log(`hi ${name2}`);
+      console.log(`${string} ${name2}, ${name}`);
     };
   };
 }
 
-const boo2 = (string) => (name) => (name2) => console.log(`hi ${name2}`);
+const boo = (string) => (name) => (name2) =>
+  console.log(`${string} ${name2}, ${name}`);
 
-boo("hi")("john")("tanya");
+boo('hi')('john')('tanya');
 
 // AHH! HOW DOES IT REMEMBER THIS 5 years from now?
-booString = boo2("sing");
-booStringName = booString("John");
-booStringNameName2 = booStringName("tanya");
+booString = boo2('sing');
+booStringName = booString('John');
+booStringNameName2 = booStringName('tanya');
 
 //exercise:
 function callMeMaybe() {
@@ -910,8 +989,8 @@ Closures are good in :
 // memory efficient
 
 function heavyDuty(item) {
-  const bigArray = new Array(7000).fill("😄");
-  console.log("created!");
+  const bigArray = new Array(7000).fill('😄');
+  console.log('created!');
   return bigArray[item];
 }
 
@@ -931,8 +1010,8 @@ getHeavyDuty(699);
 
 // but i dont want to pollute the global namespace..
 function heavyDuty2() {
-  const bigArray = new Array(7000).fill("😄");
-  console.log("created Again!");
+  const bigArray = new Array(7000).fill('😄');
+  console.log('created Again!');
   return function (item) {
     return bigArray[item];
   };
@@ -948,7 +1027,7 @@ const makeNuclearButton = () => {
   const totalPeaceTime = () => timeWithoutDestruction;
   const launch = () => {
     timeWithoutDestruction = -1;
-    return "💥";
+    return '💥';
   };
 
   setInterval(passTime, 1000);
@@ -968,8 +1047,8 @@ how cool is that :)
 // Make it so that the initialize function can only be called once!
 let view;
 function initialize() {
-  view = "🏔";
-  console.log("view has been set!");
+  view = '🏔';
+  console.log('view has been set!');
 }
 
 initialize();
@@ -981,14 +1060,15 @@ console.log(view);
 
 let view;
 function initialize() {
-  view = "🏔";
+  let view = '🏔';
+  let called = 0;
   return () => {
     if (called > 0) {
       return;
     } else {
-      view = "🏔";
+      view = '🏔';
       called++;
-      console.log("view has been set!");
+      console.log('view has been set!');
     }
   };
 }
@@ -1006,7 +1086,7 @@ How cool is that, now we force calling the function just once :))
 const array = [1, 2, 3, 4];
 for (var i = 0; i < array.length; i++) {
   setTimeout(function () {
-    console.log("I am at index " + i);
+    console.log('I am at index ' + i);
   }, 3000);
 }
 
@@ -1026,7 +1106,7 @@ we want to print all the indexs
 const array = [1, 2, 3, 4];
 for (let i = 0; i < array.length; i++) {
   setTimeout(function () {
-    console.log("I am at index " + i);
+    console.log('I am at index ' + i);
   }, 3000);
 }
 
@@ -1041,7 +1121,7 @@ const array = [1, 2, 3, 4];
 for (var i = 0; i < array.length; i++) {
   (function (closureI) {
     setTimeout(function () {
-      console.log("I am at index " + closureI);
+      console.log('I am at index ' + closureI);
     }, 3000);
   })(i);
 }
@@ -1068,7 +1148,7 @@ array.__proto__; // run it :)
 // example 1
 
 let dragon = {
-  name: "Tanya",
+  name: 'Tanya',
   fire: true,
   fight() {
     return 5;
@@ -1081,7 +1161,7 @@ let dragon = {
 };
 
 let lizard = {
-  name: "Kiki",
+  name: 'Kiki',
   fight() {
     return 1;
   },
@@ -1105,7 +1185,7 @@ object because we're just override the default prototype object with dragon
 
 // example 2
 let dragon = {
-  name: "Tanya",
+  name: 'Tanya',
   fire: true,
   fight() {
     return 5;
@@ -1118,7 +1198,7 @@ let dragon = {
 };
 
 let lizard = {
-  name: "Kiki",
+  name: 'Kiki',
   fight() {
     return 1;
   },
@@ -1139,11 +1219,11 @@ sing
 // --- Now let's see a little about functions
 
 function a() {}
-a.hasOwnProperty("name"); // output: true
+a.hasOwnProperty('name'); // output: true
 a.name; // output: "a"
-a.hasOwnProperty("call"); // output: false
-a.hasOwnProperty("bind"); // output: false
-a.hasOwnProperty("apply"); // output: false
+a.hasOwnProperty('call'); // output: false
+a.hasOwnProperty('bind'); // output: false
+a.hasOwnProperty('apply'); // output: false
 
 /* why is that : 
 see image 4 pillars
@@ -1190,7 +1270,7 @@ typeof Object.prototype; // Object
 //#1
 //Date object => to have new method .lastYear() which shows you last year 'YYYY' format.
 
-new Date("1900-10-10").lastYear();
+new Date('1900-10-10').lastYear();
 
 //'1899'
 
@@ -1209,7 +1289,7 @@ Date.prototype.lastYear = function () {
 // the arrow function does not work because arrow functions are lexicly scoped which mean this keyword refer to function
 // not Date object
 
-new Date("1900-10-10").lastYear();
+new Date('1900-10-10').lastYear();
 
 // --------------------------- Oriented Object Programming -------------------------------//
 
@@ -1223,12 +1303,12 @@ function createElf(name, weapon) {
     name: name,
     weapon: weapon,
     atack() {
-      return "atack with " + weapon;
+      return 'atack with ' + weapon;
     },
   };
 }
-const sam = createElf("Sam", "bow");
-const peter = createElf("Peter", "bow");
+const sam = createElf('Sam', 'bow');
+const peter = createElf('Peter', 'bow');
 
 sam.atack();
 
@@ -1241,7 +1321,7 @@ elfs object we're gonna have to save every time a space in memory, this is not t
 
 const elfFunctions = {
   attack() {
-    return "attack with " + this.weapon;
+    return 'attack with ' + this.weapon;
   },
 };
 
@@ -1252,8 +1332,8 @@ function createElf(name, weapon) {
 
   return newElf;
 }
-const sam = createElf("Sam", "bow");
-const peter = createElf("Peter", "bow");
+const sam = createElf('Sam', 'bow');
+const peter = createElf('Peter', 'bow');
 
 console.log(sam.atack());
 console.log(peter.atack());
@@ -1269,11 +1349,11 @@ function Elf(name, weapon) {
 }
 
 Elf.prototype.attack = function () {
-  return "attack with" + this.weapon;
+  return 'attack with' + this.weapon;
 };
 
-const sam = new Elf("Sam", "bow");
-const peter = new Elf("Peter", "bow");
+const sam = new Elf('Sam', 'bow');
+const peter = new Elf('Peter', 'bow');
 
 console.log(same.name);
 console.log(same.atack());
@@ -1303,12 +1383,12 @@ class Elf {
   }
 
   attack() {
-    return "attack with" + this.weapon;
+    return 'attack with' + this.weapon;
   }
 }
 
-const sam = new Elf("Sam", "bow");
-const peter = new Elf("Peter", "bow");
+const sam = new Elf('Sam', 'bow');
+const peter = new Elf('Peter', 'bow');
 
 console.log(same.name);
 console.log(same.atack());
@@ -1331,14 +1411,14 @@ function Person(name, age) {
   console.log(this);
 }
 
-const person1 = new Person("Xavier", 55);
+const person1 = new Person('Xavier', 55);
 
 //implicit binding
 const person = {
-  name: "Karen",
+  name: 'Karen',
   age: 40,
   hi() {
-    console.log("hi" + this.name);
+    console.log('hi' + this.name);
   },
 };
 
@@ -1346,10 +1426,10 @@ person.hi();
 
 //explicit binding
 const person3 = {
-  name: "Karen",
+  name: 'Karen',
   age: 40,
   hi: function () {
-    console.log("hi" + this.setTimeout);
+    console.log('hi' + this.setTimeout);
   }.bind(window),
 };
 
@@ -1357,11 +1437,11 @@ person3.hi();
 
 // arrow functions
 const person4 = {
-  name: "Karen",
+  name: 'Karen',
   age: 40,
   hi: function () {
     var inner = () => {
-      console.log("hi " + this.name);
+      console.log('hi ' + this.name);
     };
     return inner();
   },
@@ -1377,7 +1457,7 @@ class Character {
     this.weapon = weapon;
   }
   attack() {
-    return "atack with " + this.weapon;
+    return 'atack with ' + this.weapon;
   }
 }
 
@@ -1385,7 +1465,7 @@ class Elf extends Character {
   constructor(name, weapon, type) {
     // console.log('what am i?', this); this gives an error
     super(name, weapon);
-    console.log("what am i?", this);
+    console.log('what am i?', this);
     this.type = type;
   }
 }
@@ -1397,20 +1477,20 @@ class Ogre extends Character {
   }
   makeFort() {
     // this is like extending our prototype.
-    return "strongest fort in the world made";
+    return 'strongest fort in the world made';
   }
 }
 
-const houseElf = new Elf("Dolby", "cloth", "house");
+const houseElf = new Elf('Dolby', 'cloth', 'house');
 //houseElf.makeFort() // error
-const shrek = new Ogre("Shrek", "club", "green");
+const shrek = new Ogre('Shrek', 'club', 'green');
 shrek.makeFort();
 
 // ------------------------------ Functional programming ---------------------------------------//
 
 // Amazon shopping
 const user = {
-  name: "Kim",
+  name: 'Kim',
   active: true,
   cart: [],
   purchases: [],
@@ -1468,7 +1548,7 @@ console.log(array); // [1, 2, 3] --> no side effect cz map return new array
 // example side effect
 
 function a() {
-  console.log("hi");
+  console.log('hi');
 }
 
 a(); // hi --> side effect because console.log is a window specific we're using the browser to log something to the browser
@@ -1487,9 +1567,9 @@ if i completely change this function to number 7 we will have any effect in the 
 
 */
 
-// --- Idempotence:
+// -------------------------------- Idempotence: -----------------------------
 
-// Idempotence:
+// Idempotence
 function notGood(num) {
   return Math.random(num);
   // new Date();
@@ -1531,14 +1611,14 @@ Immutibility mean not changing the data, not changing the state
 but instead copying the state and returning new state every time
 */
 
-const obj = { name: "Andrei" };
+const obj = { name: 'Andrei' };
 function clone(obj) {
   return { ...obj }; // this is pure
 }
 
 function updateName(obj) {
   const obj2 = clone(obj);
-  obj2.name = "Nana";
+  obj2.name = 'Nana';
   return obj2;
 }
 
@@ -1586,7 +1666,7 @@ partialMultiplyBy5(10, 20);
 // --- Dynamic programming
 
 function addTo80(nbr) {
-  console.log("takes a long time ...");
+  console.log('takes a long time ...');
   return nbr + 80;
 }
 addTo80(5);
@@ -1605,7 +1685,7 @@ function memoizeAddTo80(n) {
   if (n in cache) {
     return cache[n];
   } else {
-    console.log("long time ...");
+    console.log('long time ...');
     cache[n] = n + 80;
     return cache[n];
   }
@@ -1622,7 +1702,7 @@ function memoizeAddTo80(n) {
     if (n in cache) {
       return cache[n];
     } else {
-      console.log("long time");
+      console.log('long time');
       const answer = n + 80;
       cache[n] = answer;
       return answer;
@@ -1658,7 +1738,7 @@ const Pipe = (f, g) => (data) => g(f(data)); // the opposite of compose :)
 
 // Amazon shopping
 const user = {
-  name: "Kim",
+  name: 'Kim',
   active: true,
   cart: [],
   purchases: [],
@@ -1678,7 +1758,7 @@ purchaseItem(
   buyItem,
   applyTaxToItems,
   addItemToCart
-)(user, { name: "laptop", price: 200 });
+)(user, { name: 'laptop', price: 200 });
 
 const compose =
   (f, g) =>
@@ -1746,9 +1826,9 @@ see image 2 and 3 to understand more :)
 const promisify = (item, delay) =>
   new Promise((resolve) => setTimeout(() => resolve(item), delay));
 
-const a = () => promisify("a", 100);
-const b = () => promisify("b", 5000);
-const c = () => promisify("c", 3000);
+const a = () => promisify('a', 100);
+const b = () => promisify('b', 5000);
+const c = () => promisify('c', 3000);
 
 async function parallel() {
   const promises = [a(), b(), c()];
@@ -1807,8 +1887,8 @@ allSettled does not care if the promise resolved of rejected
 
 // ---------------------------- modules ---------------------------------//
 
-var harry = "potter";
-var voldemort = "He who must not be named";
+var harry = 'potter';
+var voldemort = 'He who must not be named';
 function fight(char1, char2) {
   var attack1 = Math.floor(Math.random() * char1.length);
   var attack2 = Math.floor(Math.random() * char2.length);
@@ -1826,8 +1906,8 @@ it's going to ovveride the fight function with haha variable, not good at all :(
 */
 
 (function () {
-  var harry = "potter";
-  var voldemort = "He who must not be named";
+  var harry = 'potter';
+  var voldemort = 'He who must not be named';
   function fight(char1, char2) {
     var attack1 = Math.floor(Math.random() * char1.length);
     var attack2 = Math.floor(Math.random() * char2.length);
@@ -1845,8 +1925,8 @@ now what if we wanna share fight function in others script
 */
 
 var fightModule = (function () {
-  var harry = "potter";
-  var voldemort = "He who must not be named";
+  var harry = 'potter';
+  var voldemort = 'He who must not be named';
   function fight(char1, char2) {
     var attack1 = Math.floor(Math.random() * char1.length);
     var attack2 = Math.floor(Math.random() * char2.length);
@@ -1871,3 +1951,5 @@ which mean anyone can overwritten it :(
 /* in order for us to use ES6 module in natuve js, we need to specifie type of script as a module script
 --> see image 1 module folder to understand
 */
+
+//after finishing the cours read this : https://www.toptal.com/javascript/10-most-common-javascript-mistakes
