@@ -619,9 +619,9 @@ const archer = {
   health: 50,
 };
 
-console.log('1: ' + archer); // output: {  name: "Robin Hood",  health: 50, }
+console.log('1: ', archer); // output: {  name: "Robin Hood",  health: 50, }
 wizard.heal.call(archer, 50, 60);
-console.log('2: ' + archer); // output: {  name: "Robin Hood",  health: 100, }
+console.log('2: ', archer); // output: {  name: "Robin Hood",  health: 100, }
 // 2 - call() + apply():  difference is that apply() we pass method parameteres in an array
 const wizard = {
   name: 'Merlin',
@@ -637,9 +637,9 @@ const archer = {
 };
 
 wizard.heal.call(archer, 50, 60);
-wizard.heal.apply(archer, [20, 30]);
 archer;
 wizard.heal.apply(archer, [20, 30]);
+archer;
 
 // function borrowing
 /* 
@@ -648,7 +648,7 @@ without having to make a copy of that method and maintain it in two separate pla
 It is accomplished through the use of .call(), .apply(), or .bind(), all of which exist 
 to explicitly set this on the method we are borrowing.
 
-the bind function is different a little bit from call() and apply() 
+the bind() function is different a little bit from call() and apply() 
 it does not run the function it return the function which mean 
 we can assign it into a variable and use it like so
 */
@@ -657,6 +657,10 @@ const healArcher = wizard.heal.bind(archer);
 console.log(archer);
 healArcher();
 console.log(archer);
+/*
+review : call() and apply() are usefull for borrowing method of an object
+bibnd() : is usefull for us to call functions later on with a certain context of certain this keyword
+*/
 
 // -- function currying:  mean parcialy give a function a parameter
 
@@ -670,17 +674,29 @@ console.log(multipleByTwo(4));
 var multipleByThree = multiply.bind(this, 3);
 console.log(multipleByThree(4));
 
+// scope vs context
+/*
+scope, is a function base, means what are variables access of a function, 
+context in other hand is more of object base, context say what the value of this keyword, which mean it's refers to
+the visibility of variables.
+which means it's most often determen by how a function is envoke with the value of this keyword
+
+*/
+
 // ---------------------- Types in JS --------------------------------//
 
 /*
 // Primitive
+
 Number
 Boolean
 String
 Undefined
 null
 Symbol("it's me :)")
+
 // Non-Primitive
+
 {}
 []
 function(){}
@@ -690,12 +706,13 @@ function(){}
 
 true.toString(); // output: "true"
 /* 
+this is called "wrapper object" -> wrapping primitive type with an object
 why is that, we already say that true is a primitive type, so why we act like an aobject
 when js engine see this kind of instruction inder the hood is going to read it like this
 Boolean(true).toString() which is weird hahahaha
 */
 
-// ---------------------- Pass By REFERENCE VS BY VaALUE----------/
+// ---------------------- Pass By REFERENCE VS BY VALUE----------/
 // see image 2
 /*
 Primitive types are emuteble which mean we can not change them 
@@ -776,8 +793,6 @@ deep:"try and copy me"
 }
 */
 
-// -------------------- Type coercion ------------//
-
 // ------ Functions are objects
 // Another way to call functions
 const four = new Function('return 4');
@@ -806,10 +821,10 @@ const specialObj = {
 // see image 1 in pillars folder
 /* it show how function object looks like behind the scense :) */
 
-// ---- Functions are first class citizens in js
+// ------------ Functions are first class citizens in js
 
 /* This is mean that : 
-1 - functions can be assign to variables and properties of object
+1 - functions can be assign to variables and properties of an object
 for example
 ------------
 var stuff = function(){}
@@ -835,7 +850,7 @@ d();
 
 // Higher order function
 /* 
---means that function take an argument a function
+-- means that function take an argument a function
 or
 -- a function that return another function
 */
@@ -889,7 +904,7 @@ function letAdminLogin(admin) {
 }
 letUserLogin('Yahya');
 // not really efficient :(
-// the Higher order function is cam in :) ohhooo :)))
+// the Higher order function is came in :) ohhooo :)))
 
 function authenticate(verifiy, person) {
   let array = [];
@@ -935,10 +950,10 @@ function a() {
 }
 a()()();
 /* 
-when we run a function we pop up of the stack and when we finish from it we collect the garbage with all variables
-but what actually happend here, is that function c() remenber whar grandpa and father are, which is enaspected behavior
-but in this cas the garbeg collection when he saw a closures it doesn't remove it from the memory heap which mean we let him now 
-that there are some references to these variables which is reallt powerfull
+when we run a function it's get pop off the stack and when we finish from it we collect the garbage with all variables
+but what actually happend here, is that function c() remenber what grandpa and father are, which is enaspected behavior
+but in this cas the garbeg collection when he saw a closures it doesn't remove it from the memory 
+heap which mean we let him know that there are some references to these variables which is realy powerfull
 */
 
 //closures and higher order function
@@ -956,11 +971,12 @@ const boo = (string) => (name) => (name2) =>
 boo('hi')('john')('tanya');
 
 // AHH! HOW DOES IT REMEMBER THIS 5 years from now?
-booString = boo2('sing');
+booString = boo('sing');
+// waiting 5 years haha
 booStringName = booString('John');
 booStringNameName2 = booStringName('tanya');
 
-//exercise:
+//exercise: this is a closure because we returning another function even if inside setTimeout web api
 function callMeMaybe() {
   setTimeout(function () {
     console.log(callMe);
@@ -1003,11 +1019,6 @@ but that sound not very efficient right :)
 isn't cool if we create this array the first time and store it because we know that we're gonna be using it a lot
 */
 
-const getHeavyDuty = heavyDuty2();
-getHeavyDuty(699);
-getHeavyDuty(699);
-getHeavyDuty(699);
-
 // but i dont want to pollute the global namespace..
 function heavyDuty2() {
   const bigArray = new Array(7000).fill('😄');
@@ -1016,9 +1027,14 @@ function heavyDuty2() {
     return bigArray[item];
   };
 }
+
+const getHeavyDuty = heavyDuty2();
+getHeavyDuty(699);
+getHeavyDuty(699);
+getHeavyDuty(699);
 // now we are efficient right :)
 
-// 2--> encapsulation
+// 2--> Encapsulation
 
 // Exercise:
 const makeNuclearButton = () => {
@@ -1037,8 +1053,11 @@ const makeNuclearButton = () => {
 const ww3 = makeNuclearButton();
 ww3.totalPeaceTime();
 /* 
-call this a lot of time and see that every time we have a new value this allow us to encapsulate the timeWithoutDestruction
-and not use it derectly 
+call this a lot of time and see that every time we have a new value this allow us to encapsulate the 
+timeWithoutDestruction and not use it directly 
+for example if we want to hide using lauch() function from outside word which has access to the variable 
+environmlent of the scope chaine, in this example we do exacty that, this principle called "least previlage"
+a big security principle when it comes to programming
 how cool is that :)
 */
 
@@ -1112,7 +1131,8 @@ for (let i = 0; i < array.length; i++) {
 
 /* 
 var is part of the global scope --> is going to intialise once and change every time we loop out 
-let create a bloc scope which mean we create every time a variable that accesble inside {}
+let create a bloc scope which mean we create every time a block scope that accesble inside {} even 
+setTimeOut finished after looping over the entire array
 */
 
 // Other way : closures :)
@@ -1126,7 +1146,7 @@ for (var i = 0; i < array.length; i++) {
   })(i);
 }
 
-// Pillars --> Prototypes inheretance
+// ---------------------- Pillars --> Prototypes inheretance
 
 /*
 Prototypes inheretence is like class inheretence in java or c#, but js not OOP language, so js use what we called 
@@ -1235,7 +1255,7 @@ soo we occupy just one space in memory --> efficient right :)
 
 see also image 5
 as you can see here in prototype inheretance we have always the idea of __proto__ link 
-into prototype and prototype has __proto__ property (it's like linked list :) )
+into prototype and prototype has __proto__ property (it's like linkedList :) )
 */
 
 //Every Prototype chain links to a prototype object{}
@@ -1257,11 +1277,23 @@ human.isPrototypeOf(socrates); // true
 
 //-- hard lesson
 
+/*
+prototype properties exist only in fuctions, see image 6
+
+*/
+function multiplyBy5(num) {
+  return num * 5;
+}
 multiplyBy5.__proto__.__proto__;
 Object.prototype;
+/*
+as you can see Object has access to prototype, what the fuck is that hhahah
+because if we run "typeof Object" we get "function", that's alot, what's happening there :(
+well Object is type of function because he has prototype property 
+*/
 multiplyBy5.__proto__.__proto__.__proto__;
 typeof Object; // "function"
-typeof {};
+typeof {}; // "object"
 typeof Object.prototype; // Object
 // try this a little bit yourself
 
@@ -1286,17 +1318,61 @@ console.log([1, 2, 3].map());
 Date.prototype.lastYear = function () {
   return this.getFullYear() - 1;
 };
-// the arrow function does not work because arrow functions are lexicly scoped which mean this keyword refer to function
-// not Date object
 
 new Date('1900-10-10').lastYear();
+/*  
+the arrow function does not work because arrow functions are lexicly scoped (determine what "this" value based on
+where it's define, not where it's called), this is why if we do
+
+Date.prototype.lastYear =  () => {
+  console.log(this);
+  return this.getFullYear() - 1;
+};
+it's going to give us the same same function we are actually calling, here we want dynamic scope which determin 
+based on where we called the function, inour case we have "new Date('1900-10-10').lastYear();"
+"this" keyword says, who called me, well it's the Date object, this is how we get "this.getFullYear()" property
+how cool is that :)
+
+solution 1
+---------
+*/
+Array.prototype.map = function () {
+  // what happens with arrow function here?
+  arr = [];
+  for (let i = 0; i < this.length; i++) {
+    arr.push(this[i] + '🗺');
+  }
+  return arr;
+};
+console.log([1, 2, 3].map());
+
+/*
+
+Last Exercice with a solution
+----------------------------
+
+How would you be able to create your own .bind() method using call or apply.
+
+Hint:
+
+Function.prototype.bind = function(){
+}
+
+See the attached solution when you are ready!
+*/
+Function.prototype.bind = function (whoIsCallingMe) {
+  const self = this;
+  return function () {
+    return self.apply(whoIsCallingMe, arguments);
+  };
+};
 
 // --------------------------- Oriented Object Programming -------------------------------//
 
 // --> see image 1 in oop and create a programme from image 2 in oop
 
 // !!! --> you should know that we start with basic solution step  by step until acheive programming paradims in image 3
-// factory function make/create
+// factory function : act like factories, they create objects for us
 function createElf(name, weapon) {
   //we can also have closures here to hide properties from being changed.
   return {
@@ -1313,8 +1389,10 @@ const peter = createElf('Peter', 'bow');
 sam.atack();
 
 /* 
-The problem with factory function, imagine that if we have a ton of elfs which mean declare a lot of 
-elfs object we're gonna have to save every time a space in memory, this is not the best :(
+The problem with factory function, imagine that if we have a ton of elfs, we need an additional space in memory
+that is, if we take the name and weapon : those is going to be different from each Elfs, but attck() method
+do the same job for every elfs instance, isn't nice to create space merory for it just once, and use it over
+all the instanciation, cool right :), more extensible code right :)
 */
 
 // Let's make it good programme using what we've already learn in prototypal inheretance --> object.create()
@@ -1335,11 +1413,26 @@ function createElf(name, weapon) {
 const sam = createElf('Sam', 'bow');
 const peter = createElf('Peter', 'bow');
 
-console.log(sam.atack());
-console.log(peter.atack());
+console.log(sam.attack());
+console.log(peter.attack());
 
-// object.create() based in prototype inheretance which make our code more extenseble and respect our paradigms
-// befiore that let see what we have :)
+/* 
+object.create() based on what we've learned in prototype inheretance, Object.create() method allows us to create 
+a link between "newElf" and "elfFunctions" (not create an object with "elfFunctions"), because "elfFunctions" now
+is going to live in the Prototype of "Object" function, to make sur we are right here, if we do
+
+function createElf(name, weapon) {
+  let newElf = Object.create(elfFunctions);
+  console.log(newElf) : --> {} because "elfFunctions" lives in newElf.__proto__ which is exactly Object.prototype
+  console.log(newElf.__proto__) --> it's going to log "elfFunctions" function
+}
+
+so that elfFunctions lives in one location, we're going to extend it whenever we're creating a new object
+How cool is that :))
+
+*/
+
+//before that let see what we have :)
 
 // --> constructor function
 
@@ -1359,19 +1452,18 @@ console.log(same.name);
 console.log(same.atack());
 
 /* 
-we already see in functions that when we call a function a new execution context is created 
-which have environment variable and also this, this 100% of the time point to the window object
-but using new keyword, we say hay "this" i want you to point what ever the object that we create which are sam and peter
-and it also create the object and return it for us, how awsom is that :)
-now as we know Elf function is like Function object which mean it live in top of regular function in terms 
-of prototype chaine so we can use prototype to create new method but it's gonna created just one time and when 
-we declare new object with new keyword we're gonna be access that method without created every time like we see 
-in the past --> memory efficient :)
-
-one more thing we can't use arrow function because arrow function is lexecly scoped or staticly scoped 
-which mean that this refer to the global object--> window because there is no object serrounding it 
-but by using regular function which is dynamicly scoped which mean it doesn't matter where it's written, but who actually called it
-
+we've already seen in functions that when we call a function a new execution context is created 
+in our case when we "Elf" function, which has variable environment and also "this", if we see "this" 
+obviously get point to the window object, but using new keyword, we say hay create a new object and return it
+for me and change "this" to point to whenever object we create from "Elf" function, in our case -> sam and peter
+and it also create the object and return it for us, how awesom is that :)
+now as we know that standart "Function, Object, Date, Number ...", all of them are called functions constructor,
+in our case we've created a custom constructor function called "Elf", so that we can do something like  
+we have in img 4 of pillars ( the box in the middle represent Elf function), we use that to access prototype 
+property and create an extendble function that whenever we create a new object, is going to use that attak() from one
+location, so that when peter called attack, peter says, I doesn't have
+attack() method, instead "peter"  when he doesn't find this method, he's goes up the prototype chaine using __proto__
+and look if we have it, so attack() lives in one location, very efficient :)
 */
 
 // Now the class keyword :))
@@ -1397,12 +1489,12 @@ console.log(sam instanceof Elf); // true
 
 /*
 does javascript has class ?
-yes it have but just in a syntatic seggure which mean class keyword at the end of the day is just 
-prototyple inheretance, and some peaple called it --> sudo classes inheretance
+yes it has but just in a syntatic seggure which mean class keyword at the end of the day is just 
+prototyple inheretance, and some peaple called it --> sudo classical inheretance
 */
 
 // --- this keyword
-// --> new binding this
+// --> new binding
 
 // new binding
 function Person(name, age) {
@@ -1424,7 +1516,7 @@ const person = {
 
 person.hi();
 
-//explicit binding
+//explicit binding : when we detect what exactly "this" should refer to
 const person3 = {
   name: 'Karen',
   age: 40,
@@ -1551,9 +1643,9 @@ function a() {
   console.log('hi');
 }
 
-a(); // hi --> side effect because console.log is a window specific we're using the browser to log something to the browser
+a(); // hi --> side effect because console.log is a window specific we're using the browser to log something to the console
 
-// ---- now the second concept which is input --> output
+// ---- now the second concept which is same input --> same output
 
 function a(num1, num2) {
   return num1 + num2;
@@ -1563,7 +1655,7 @@ a(3, 4);
 /*
 no matter how many time we called it it's going to give us always the same output
 and this is called referential transparency which mean
-if i completely change this function to number 7 we will have any effect in the program
+if i completely change this function to number 7 we will have noo effect in the program
 
 */
 
@@ -1572,9 +1664,18 @@ if i completely change this function to number 7 we will have any effect in the 
 // Idempotence
 function notGood(num) {
   return Math.random(num);
-  // new Date();
 }
 notGood(5); // not always the same output
+
+/*
+The idea behind Idempotence is that, no mather the input is, we have or know exactly what the output going to be
+Math.random() here, when running the function we know that's going to gives us a random numbe between 0 and 1
+another example
+--------------
+if we have a function that delete a user from the database, no matter how many time we're calling it
+we know that it's going to gives us the result we're expecting (like error Message = "User deleted successfuly")
+even if the function deleteUser() communicat with the outside word, how cool is that :)
+*/
 
 function good() {
   return 5;
@@ -1601,7 +1702,7 @@ for (let i = 0; i < 100; i++) {
 
 [1, 2, 3].forEach((num) => console.log(num));
 
-// this time arround we have an Declarative code which mean we don't tell it how to do things we're just
+// this time arround we have Declarative code which mean we don't tell it how to do things we're just
 // tell it to console.log() the iterble item of the array
 
 // ------- Imutibility --------
@@ -1625,8 +1726,6 @@ function updateName(obj) {
 const updatedObj = updateName(obj);
 console.log(obj, updatedObj);
 // we don't change the global state which is "obj"
-
-// ____ HIF
 
 //HOF
 const hof = (fn) => fn(5);
@@ -1676,7 +1775,7 @@ addTo80(5);
 /*
 imagine that the operation is a little bit complexe and take time
 how we can optimize this in order to not repeat the same operation over and over
-this is when we can use caching or memoization
+this is when we can use caching or what we called memoization
 */
 
 let cache = {};
@@ -1696,7 +1795,7 @@ memoizeAddTo80(5); // output
 memoizeAddTo80(5); // output: 85 --> amazing right
 
 // let's make that better with no global scope. This is closure in javascript so.
-function memoizeAddTo80(n) {
+function memoizeAddTo80() {
   let cache = {};
   return function (n) {
     if (n in cache) {
@@ -1716,6 +1815,12 @@ console.log(1, memoized(6));
 // console.log('-----------')
 console.log(2, memoized(6));
 
+/* this is the power behine caching, we don't repeat ourselfs, so if the function take time to run
+we're running for a long time when the first time we called the function, in the second calls, function realize that
+we've already done the same work before, so i'm going to return just the same result that i've already memoize
+how cool is that :)
+*/
+
 // Compose
 
 const compose = (f, g) => (data) => f(g(data));
@@ -1725,6 +1830,8 @@ const multipleByT3AndAbsolute = compose(multipleByThree, makePositive);
 
 /*  
 composobility is a system design principle that deals with the relationship between components 
+which mean, composing differents components of a factory that's work on a given data, and a highly composeble
+system provide components that can be selected in various combinations
 */
 
 // Pipe
@@ -1734,7 +1841,13 @@ essencialy the same thing exept instead of right to left it goes left to right
 
 const Pipe = (f, g) => (data) => g(f(data)); // the opposite of compose :)
 
-// Arity --> number of arguments a function take
+// Arity --> number of arguments a function takes for example "multipleByThree" has an arity of 1
+// "compose" has an arity of 2
+
+/* there is a javascript library that help writing complexe js
+https://ramdajs.com/docs
+we can use it for compose and pipe if we want :)
+*/
 
 // Amazon shopping
 const user = {
